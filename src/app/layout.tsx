@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Leaf",
+  title: "Leafers",
   description: "Grab all the leaves and become the biggest tree!",
 };
 
