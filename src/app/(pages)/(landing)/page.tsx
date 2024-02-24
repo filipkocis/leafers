@@ -30,10 +30,10 @@ export default async function Home() {
         
         <div className="[&>*]:p-[2rem_3.5rem] [&>*]:text-xl flex gap-2 justify-center">
         {session ? 
-          <Button><Link href="/home">Enter App</Link></Button> :
-          <Button><Link href="/register">Become a Leafer</Link></Button>
+          <Button asChild><Link href="/home">Enter App</Link></Button> :
+          <Button asChild><Link href="/register">Become a Leafer</Link></Button>
         }
-          <Button variant="outline"><Link href="/login">Login</Link></Button>
+          <Button asChild variant="outline"><Link href="/login">Login</Link></Button>
         </div>
       </div>
 
