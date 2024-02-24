@@ -54,16 +54,26 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  const { data: { user }, error} = await supabase.auth.getUser()
-  if (error || !user) {
-    return NextResponse.redirect(new URL('/', request.url))
+  const { data: { session }, error} = await supabase.auth.getSession()
+  if (error || !session) {
+    if (!whiteList.includes(request.nextUrl.pathname)) { 
+      return NextResponse.redirect(new URL('/', request.url))
+    }
   }
 
   return response
 }
 
+const whiteList = [
+
+  '/login',
+  '/register',
+  '/logout',
+  '/',
+]
+
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|login|register|$|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }
