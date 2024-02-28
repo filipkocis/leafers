@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import { cn } from "./lib/shadcn/lib/utils";
+import "@/app/globals.css";
+import { cn } from "@/shadcn/lib/utils";
+import { Toaster } from "@/shadcn/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,9 +16,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body className={cn(inter.className, "bg-primary/10")}>{children}</body>
+      <Toaster richColors />
     </html>
   );
 }
