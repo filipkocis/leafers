@@ -3,12 +3,9 @@
 import { z } from "zod";
 import { combinedSchema, logPostSchema } from "../utils/newPostSchema";
 import createClient from "@/app/services/supabase/action";
-import { RedirectType, redirect } from "next/navigation";
 import { getUser } from "@/app/utils/server/auth";
 
 export async function createPost(values: z.infer<typeof combinedSchema>) {
-  await new Promise(resolve => setTimeout(resolve, 1000))
-  return
   try {
     const validPostData = combinedSchema.parse(values)
     const supabase = await createClient()
