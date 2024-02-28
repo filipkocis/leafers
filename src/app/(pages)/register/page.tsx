@@ -10,7 +10,7 @@ export default async function Register() {
   const session = await getSession()
 
   if (session) {
-    // redirect('/home', RedirectType.replace)
+    redirect('/home', RedirectType.replace)
   }
 
   return (
