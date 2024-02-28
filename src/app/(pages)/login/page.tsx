@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { RedirectType, redirect } from "next/navigation";
 
-export default async function Register() {
+export default async function Login() {
   const session = await getSession()
 
   if (session) {
@@ -30,7 +30,7 @@ export default async function Register() {
         <LoginForm />
         <p className="flex gap-2 justify-center">
           <span className="">Don't have an account?</span>
-          <Link href="/login" className="underline text-primary">Login</Link>
+          <Link href="/register" className="underline text-primary">Register</Link>
         </p>
       </Card>
     </main>
