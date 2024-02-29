@@ -4,15 +4,15 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
-import { Button } from "@/shadcn/components/ui/button"
+import { Button } from "@shadcn/components/ui/button"
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/shadcn/components/ui/form"
-import { Input } from "@/shadcn/components/ui/input"
+} from "@shadcn/components/ui/form"
+import { Input } from "@shadcn/components/ui/input"
 import loginUserSchema from "../utils/loginUserSchema"
 import { loginUser } from "../actions/loginUser"
 

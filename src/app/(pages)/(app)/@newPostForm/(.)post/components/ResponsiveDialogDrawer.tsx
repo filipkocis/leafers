@@ -1,25 +1,19 @@
 "use client"
 
-import { Button } from "@/shadcn/components/ui/button"
+import { Button } from "@shadcn/components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/shadcn/components/ui/dialog"
+} from "@shadcn/components/ui/dialog"
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/shadcn/components/ui/drawer"
-import NewPostForm from "@/app/(pages)/(app)/post/components/NewPostForm"
+} from "@shadcn/components/ui/drawer"
+import NewPostForm from "@app/post/components/NewPostForm"
 import { useRouter } from "next/navigation"
-import { useWindowSize } from "@/app/hooks/useWindowSize"
+import { useWindowSize } from "@hooks/useWindowSize"
 
 export default function ResponsiveDrawerDialog() {
   const router = useRouter();

@@ -1,6 +1,6 @@
-import NavItems from "./components/NavItems";
-import LogoutButton from "./components/LogoutButton";
-import NewPostButton from "./components/NewPostButton";
+import NavItems from "@app/components/NavItems";
+import LogoutButton from "@app/components/LogoutButton";
+import NewPostButton from "@app/components/NewPostButton";
 
 export default async function Layout({ children, newPostForm }: { children: React.ReactNode, newPostForm: React.ReactNode }) {
   return (

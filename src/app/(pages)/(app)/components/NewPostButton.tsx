@@ -1,7 +1,6 @@
 "use client"
 
-import { Button } from "@/app/lib/shadcn/components/ui/button";
-import { cn } from "@/app/lib/shadcn/lib/utils";
+import { Button } from "@shadcn/components/ui/button";
 import { LucideFeather } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

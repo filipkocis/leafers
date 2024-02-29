@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import registerUserSchema from "../utils/registerUserSchema";
-import createClient from "@/app/services/supabase/action";
+import createClient from "@services/supabase/action";
 import { RedirectType, redirect } from "next/navigation";
 
 export async function registerUser(values: z.infer<typeof registerUserSchema>) {

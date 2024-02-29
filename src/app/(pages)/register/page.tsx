@@ -1,8 +1,8 @@
-import { Card } from "@/app/lib/shadcn/components/ui/card";
+import { Card } from "@shadcn/components/ui/card";
 import RegisterForm from "./components/RegisterForm";
 import { RedirectType, redirect } from "next/navigation";
-import { getSession } from "@/app/utils/server/auth";
-import { cn } from "@/app/lib/shadcn/lib/utils";
+import { getSession } from "@utils/server/auth";
+import { cn } from "@shadcn/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 

@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import loginUserSchema from "../utils/loginUserSchema";
-import createClient from "@/app/services/supabase/action";
+import createClient from "@services/supabase/action";
 import { RedirectType, redirect } from "next/navigation";
 
 export async function loginUser(values: z.infer<typeof loginUserSchema>) {

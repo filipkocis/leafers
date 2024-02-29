@@ -1,4 +1,4 @@
-import { Card } from "@/app/lib/shadcn/components/ui/card";
+import { Card } from "@shadcn/components/ui/card";
 import NewPostForm from "./components/NewPostForm";
 
 export default function NewPost() {

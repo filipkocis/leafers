@@ -12,8 +12,8 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/shadcn/components/ui/button";
-import { cn } from "@/app/lib/shadcn/lib/utils";
+import { Button } from "@shadcn/components/ui/button";
+import { cn } from "@shadcn/lib/utils";
 
 export default function NavItems() {
   return (

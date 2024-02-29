@@ -1,6 +1,6 @@
-import { cn } from "@/app/lib/shadcn/lib/utils";
-import { getSession } from "@/app/utils/server/auth";
-import { Button } from "@/shadcn/components/ui/button";
+import { cn } from "@shadcn/lib/utils";
+import { getSession } from "@utils/server/auth";
+import { Button } from "@shadcn/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 

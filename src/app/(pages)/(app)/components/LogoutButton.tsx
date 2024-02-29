@@ -1,4 +1,4 @@
-import { Button } from "@/shadcn/components/ui/button"
+import { Button } from "@shadcn/components/ui/button"
 import { LucideLogOut } from "lucide-react"
 
 export default function LogoutButton() {

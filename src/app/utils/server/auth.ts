@@ -1,4 +1,4 @@
-import createClient from "@/app/services/supabase/server";
+import createClient from "@services/supabase/server";
 
 export async function getSession() {
   const supabase = await createClient();
