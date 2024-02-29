@@ -19,14 +19,16 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/shadcn/*": ["./src/app/lib/shadcn/*"],
-      "@/lib/*": ["./src/app/lib/*"],
-      "@/types/*": ["./src/app/types/*"],
-      "@/components/*": ["./src/app/components/*"],
-      "@/actions/*": ["./src/app/actions/*"],
-      "@/hooks/*": ["./src/app/hooks/*"],
-      "@/services/*": ["./src/app/services/*"],
-      "@/utils/*": ["./src/app/utils/*"]
+      "@shadcn/*": ["./src/app/lib/shadcn/*"],
+      "@lib/*": ["./src/app/lib/*"],
+      "@types/*": ["./src/app/types/*"],
+      "@components/*": ["./src/app/components/*"],
+      "@actions/*": ["./src/app/actions/*"],
+      "@hooks/*": ["./src/app/hooks/*"],
+      "@services/*": ["./src/app/services/*"],
+      "@utils/*": ["./src/app/utils/*"],
+      "@app/*": ["./src/app/(pages)/(app)/*"],
+      "@landing/*": ["./src/app/(pages)/(landing)/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
