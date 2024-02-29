@@ -38,7 +38,7 @@ function NavButton({ href, label, Icon }: { href: string, label: string, Icon: L
         variant="secondary" 
         className={cn(
           "text-xl lg:w-[250px] h-auto bg-transparent p-0 rounded-full font-normal hover:bg-primary/10", 
-          pathname.includes(href) && "font-semibold text-primary"
+          pathname.startsWith(href) && "font-semibold text-primary"
         )} asChild>
         <Link href={href} className="gap-4 p-3 lg:px-4 lg:py-3 flex lg:grid-cols-[auto_1fr] lg:grid">
           <Icon width={28} height={28} />
