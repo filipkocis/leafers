@@ -18,8 +18,8 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="en">
-      <body className={cn(inter.className, "bg-primary/10")}>{children}</body>
+    <html lang="en" className="">
+      <body className={cn(inter.className, "")}>{children}</body>
       <Toaster richColors />
     </html>
   );
