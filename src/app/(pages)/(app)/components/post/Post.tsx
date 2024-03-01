@@ -4,7 +4,7 @@ import PostData from "./PostData"
 import PostContainer from "./PostContainer"
 import ProfilePicture from "../ProfilePicture"
 
-export default async function Post({ post, className}: { className?: string }) {
+export default async function Post({ post, className}: { className?: string, post: any }) {
   return (
     <PostContainer className={cn("grid grid-cols-[auto_1fr] gap-2 border-0 border-b shadow-none", className)}>
       <ProfilePicture className="self-start" src={post.profiles.avatar} alt="Profile picture" size={42} />

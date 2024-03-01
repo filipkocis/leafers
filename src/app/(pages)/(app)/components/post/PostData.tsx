@@ -6,7 +6,7 @@ import Error from "@app/components/Error";
 import { formatUnit } from "@utils/format";
 import { cn } from "@/app/lib/shadcn/lib/utils";
 
-export default async function PostData({ post }) {
+export default async function PostData({ post }: { post: any }) {
   let content;
 
   if (post.type === "text") return null;

@@ -66,8 +66,10 @@ export default function RegisterForm() {
   };
 
   useEffect(() => {
+    // @ts-ignore
+    // TODO: fix this later and implement validation
     form.setValue("type", type)
-  }, [type])
+  }, [type, form])
 
   return (
     <Form {...form}>

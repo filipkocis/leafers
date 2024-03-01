@@ -29,7 +29,7 @@ export default async function Login() {
         <h2 className="text-4xl font-bold mb-6">Welcome back</h2>
         <LoginForm />
         <p className="flex gap-2 justify-center">
-          <span className="">Don't have an account?</span>
+          <span className="">Don&apos;t have an account?</span>
           <Link href="/register" className="underline text-primary">Register</Link>
         </p>
       </Card>
