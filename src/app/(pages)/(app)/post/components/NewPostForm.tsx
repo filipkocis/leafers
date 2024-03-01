@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
-import { Button } from "@/shadcn/components/ui/button"
+import { Button } from "@shadcn/components/ui/button"
 import {
   Form,
   FormControl,
@@ -12,21 +12,22 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from "@/shadcn/components/ui/form"
-import { Input } from "@/shadcn/components/ui/input"
+} from "@shadcn/components/ui/form"
+import { Input } from "@shadcn/components/ui/input"
 import { createPost } from "../actions/createPost"
-import { PostType, combinedSchema } from "../utils/newPostSchema"
+import { combinedSchema } from "../utils/newPostSchema"
 import { ChangeEvent, useEffect, useState } from "react"
-import { RadioGroup, RadioGroupItem } from "@/app/lib/shadcn/components/ui/radio-group"
-import { Label } from "@/app/lib/shadcn/components/ui/label"
-import { cn } from "@/app/lib/shadcn/lib/utils"
-import Image from "next/image"
-import { Textarea } from "@/app/lib/shadcn/components/ui/textarea"
+import { RadioGroup, RadioGroupItem } from "@shadcn/components/ui/radio-group"
+import { Label } from "@shadcn/components/ui/label"
+import { cn } from "@shadcn/lib/utils"
+import { Textarea } from "@shadcn/components/ui/textarea"
 import DateTimePickerForm from "./DateTimePickerForm"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/lib/shadcn/components/ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shadcn/components/ui/select"
 import { toast } from "sonner"
-import { capitalize } from "@/app/utils/string"
+import { capitalize } from "@utils/string"
 import { Loader } from "lucide-react"
+import ProfilePicture from "@app/components/ProfilePicture"
+import { PostType } from "@app/utils/post"
 
 export default function RegisterForm() {
   const [type, setType] = useState<PostType>("text")
@@ -94,11 +95,7 @@ export default function RegisterForm() {
         </RadioGroup> 
 
         <div className="grid gap-2 grid-cols-[auto_1fr]">
-          <div className="flex items-start justify-center h-[54px]"> 
-            <div className="rounded-full self-center overflow-hidden border flex items-center justify-center bg-green-200">
-              <Image src="/tree1.png" width={50} height={50} alt="Avatar" />
-            </div>
-          </div>
+          <ProfilePicture className="justify-center self-center items-center" src={undefined} alt="Profile picture" size={50} />
 
           <FormField
             control={form.control}
