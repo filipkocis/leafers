@@ -26,7 +26,7 @@ export default function NavTabs({ check, items }: { check: (page: string) => boo
 function ProfileNavItem({ href, label, selected }: { href: string, selected: boolean, label: string }) {
   return (
     <Link 
-      className="transition-all hover:bg-slate-200/50 flex justify-center font-semibold text-muted-foreground" 
+      className="transition-all hover:bg-muted flex justify-center font-semibold text-muted-foreground" 
       href={href}>
       <div className="grid grid-rows-[1fr_5px]">
         <span className={cn("py-3", selected && "text-foreground")}>{label}</span>
