@@ -65,6 +65,11 @@ export default function RegisterForm() {
     }
   };
 
+  const handleUnitChange = (value: string, onChange: (...event: any[]) => void) => {
+    if (value === "null") onChange(undefined)
+    else onChange(value)
+  };
+
   useEffect(() => {
     // @ts-ignore
     // TODO: fix this later and implement validation
@@ -163,7 +168,7 @@ export default function RegisterForm() {
               name="unit"
               render={({ field }) => (
                 <FormItem className="w-min">
-                  <Select onValueChange={field.onChange} >
+                  <Select onValueChange={(value) => handleUnitChange(value, field.onChange)} >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Unit" />
@@ -173,6 +178,7 @@ export default function RegisterForm() {
                       <SelectItem value="gram">g</SelectItem>
                       <SelectItem value="miligram">mg</SelectItem>
                       <SelectItem value="hour">h</SelectItem>
+                      <SelectItem value="null">None</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
