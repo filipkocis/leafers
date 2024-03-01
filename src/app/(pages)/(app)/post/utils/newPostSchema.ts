@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { unitEnum } from "@app/utils/post";
 
 const basePostSchema = z.object({
   content: z.string()
@@ -9,15 +10,6 @@ const basePostSchema = z.object({
     .uuid({ message: "Invalid parent ID" })
     .optional(),
 })
-
-export type PostType = "text" | "log" | "media" | "poll" | "link" | "event" | "repost" 
-
-export const unitEnum = [
-  'gram',
-  'miligram',
-  'second',
-  'hour',
-] as const
 
 export const textPostSchema = basePostSchema.extend({
   type: z.literal("text"),
