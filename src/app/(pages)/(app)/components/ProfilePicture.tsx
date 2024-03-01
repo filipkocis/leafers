@@ -1,4 +1,4 @@
-import { cn } from "@/app/lib/shadcn/lib/utils";
+import { cn } from "@shadcn/lib/utils";
 import Image from "next/image";
 
 export default function ProfilePicture({ src, alt, size, className }: { src: string | undefined | null, alt: string, size: number, className?: string }) {
