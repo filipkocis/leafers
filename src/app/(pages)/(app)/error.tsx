@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from "@/app/lib/shadcn/components/ui/button"
+import { Button } from "@shadcn/components/ui/button"
 
  
 export default function Error({
