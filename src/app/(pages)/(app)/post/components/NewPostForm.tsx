@@ -16,7 +16,7 @@ import {
 import { Input } from "@shadcn/components/ui/input"
 import { createPost } from "../actions/createPost"
 import { combinedSchema } from "../utils/newPostSchema"
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useRef, useState } from "react"
 import { RadioGroup, RadioGroupItem } from "@shadcn/components/ui/radio-group"
 import { Label } from "@shadcn/components/ui/label"
 import { cn } from "@shadcn/lib/utils"
@@ -29,13 +29,14 @@ import { Loader } from "lucide-react"
 import ProfilePicture from "@app/components/ProfilePicture"
 import { PostType } from "@app/utils/post"
 
-export default function RegisterForm() {
+export default function RegisterForm({ tabs = "top" }: { tabs?: "top" | "bottom" }) {
   const [type, setType] = useState<PostType>("text")
+  const formRef = useRef<HTMLFormElement>(null)
 
   const form = useForm<z.infer<typeof combinedSchema>>({
     resolver: zodResolver(combinedSchema),
     defaultValues: {
-      datetime: new Date()
+      timestamp: new Date()
     },
   })
  
@@ -76,11 +77,28 @@ export default function RegisterForm() {
     form.setValue("type", type)
   }, [type, form])
 
+  // TODO: create a custom hook for this
+  useEffect(() => {
+    if (!formRef.current) return;
+    
+    const oldHeight = formRef.current.style.height;
+
+    formRef.current.style.height = "auto";
+    const newHeight = `${formRef.current.scrollHeight}px`;
+
+    formRef.current.style.height = oldHeight;
+
+    setTimeout(() => {
+      if (formRef.current) formRef.current.style.height = newHeight;
+    }, 0);
+  }, [formRef, type])
+
   return (
     <Form {...form}>
       <form 
+        ref={formRef}
         onSubmit={form.handleSubmit(onSubmit)} 
-        className="grid gap-3">
+        className="flex flex-col gap-3 transition-all overflow-y-hidden p-1">
           <FormField
             control={form.control}
             name="type"
@@ -95,14 +113,10 @@ export default function RegisterForm() {
 
         <input type="hidden" name="type" value={type} />
 
-        <RadioGroup defaultValue="comfortable" className="grid grid-cols-[auto,auto,auto] rounded-sm p-1 bg-muted">
-          <RadioPostItem onSelect={(v) => setType(v)} isSelected={type === "text"} id="post-text" value="text" label="Text" />
-          <RadioPostItem onSelect={(v) => setType(v)} isSelected={type === "log"} id="post-log" value="log" label="Log" />
-          <RadioPostItem onSelect={(v) => setType(v)} isSelected={type === "media"} id="post-media" value="media" label="Media" />
-        </RadioGroup> 
+        {tabs === "top" && <PostTabs type={type} setType={setType} />} 
 
         <div className="grid gap-2 grid-cols-[auto_1fr]">
-          <ProfilePicture className="justify-center self-center items-center" src={undefined} alt="Profile picture" size={50} />
+          <ProfilePicture className="self-start" src={undefined} alt="Profile picture" size={50} />
 
           <FormField
             control={form.control}
@@ -225,25 +239,34 @@ export default function RegisterForm() {
           />
         </>)}
 
-        <div className="grid gap-4 items-center grid-cols-[1fr_auto]">
-
-        <FormField
-          control={form.control}
-          name="datetime"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <DateTimePickerForm 
-                  className="px-3 py-2"
-                  {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+        <div className="items-end h-full grid gap-4 grid-cols-[1fr_auto]">
+          {type === "log" && (
+            <FormField
+              control={form.control}
+              name="timestamp"
+              render={({ field }) => (
+                <FormItem className={cn(tabs === "bottom" && "col-span-2")}>
+                  <FormControl>
+                    <DateTimePickerForm 
+                      className="px-3 py-2"
+                      {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           )}
-        />
 
-        <Button className="py-6 px-8 uppercase text-2xl font-semibold bg-gradient-to-r from-green-500 from-20% to-primary" type="submit">Enter</Button>
+          {tabs === "bottom" && <PostTabs type={type} setType={setType} />} 
 
+          {type !== "log" && tabs !== "bottom" && <div /> }
+
+          <Button 
+            className="place-self-end px-4 py-3 text-lg rounded-full bg-gradient-to-r from-green-500 from-20% to-primary" 
+            type="submit"
+          >
+            Post
+          </Button>
         </div>
       </form>
     </Form>
@@ -256,5 +279,15 @@ function RadioPostItem({ id, value, label, isSelected, onSelect }: { id: string,
       <RadioGroupItem className="hidden" checked={isSelected} value={value} id={id} />
       <Label htmlFor={id} onClick={() => onSelect(value)} className={cn("transition-all cursor-pointer px-3 py-2 rounded-sm text-muted-foreground", isSelected && "text-foreground bg-background")}>{label}</Label>
     </div>
+  )
+}
+
+function PostTabs({ type, setType }: { type: PostType, setType: (type: PostType) => void }) {
+  return (
+    <RadioGroup defaultValue="comfortable" className="grid grid-cols-[auto,auto,auto] rounded-sm p-1 bg-muted">
+      <RadioPostItem onSelect={(v) => setType(v)} isSelected={type === "text"} id="post-text" value="text" label="Text" />
+      <RadioPostItem onSelect={(v) => setType(v)} isSelected={type === "log"} id="post-log" value="log" label="Log" />
+      <RadioPostItem onSelect={(v) => setType(v)} isSelected={type === "media"} id="post-media" value="media" label="Media" />
+    </RadioGroup>
   )
 }

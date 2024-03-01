@@ -5,7 +5,6 @@ const basePostSchema = z.object({
   content: z.string()
     .max(280, { message: "Message is too long." })
     .optional(),
-  datetime: z.date({ required_error: "Date is required" }),
   parent: z.string()
     .uuid({ message: "Invalid parent ID" })
     .optional(),
@@ -31,6 +30,7 @@ export const logPostSchema = basePostSchema.extend({
   appearance: z.string()
     .max(64, { message: "Value is too long" })
     .optional(),
+  timestamp: z.date({ required_error: "Date is required" }),
 })
 
 export const combinedSchema = z.union([
