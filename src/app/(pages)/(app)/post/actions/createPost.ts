@@ -18,7 +18,7 @@ export async function createPost(values: z.infer<typeof combinedSchema>) {
       type: validPostData.type,
       content: validPostData.content,
       parent_id: validPostData.parent,
-      profile_id: profile.data.id,
+      profile_id: profile.data,
     }).select('id').single()
 
     if (postError) throw postError;
