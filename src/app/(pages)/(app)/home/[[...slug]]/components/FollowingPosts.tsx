@@ -1,7 +1,6 @@
 import { getFollowedPosts } from "@app/utils/server/getPosts"
-import Post from "@app/components/post/Post"
 import Error from "@app/components/Error"
-import Link from "next/link"
+import LinkPost from "./LinkPost"
 
 export default async function FollowingPosts() {
   const posts = await getFollowedPosts()
@@ -11,9 +10,7 @@ export default async function FollowingPosts() {
   return (
     <div className="grid">
       {posts.data.map((post => (
-         <Link href={`/post/${post.id}`} key={post.id}>
-          <Post post={post} />
-        </Link>
+        <LinkPost href={`/post/${post.id}`} post={post} key={post.id} />
       )))}
     </div>
   )
