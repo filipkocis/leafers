@@ -12,7 +12,7 @@ export async function getPostById(id: string) {
     
     const { data, error } = await supabase
       .from('posts')
-      .select('*, profiles!inner(id, username, display_name, avatar)')
+      .select('*, profiles!inner(id, username, display_name, avatar_url)')
       .eq('id', id)
       .single()
 
@@ -41,7 +41,7 @@ export async function getPosts(config: GetPostsConfig = { limit: 10, offset: 0 }
     
     const { data, error } = await supabase
       .from('posts')
-      .select('*, profiles!inner(id, username, display_name, avatar)')
+      .select('*, profiles!inner(id, username, display_name, avatar_url)')
       .order('created_at', { ascending: false })
       .limit(config.limit)
       .range(config.offset, config.limit + config.offset - 1);

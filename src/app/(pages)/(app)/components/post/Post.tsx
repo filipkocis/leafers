@@ -7,7 +7,7 @@ import ProfilePicture from "../ProfilePicture"
 export default async function Post({ post, className}: { className?: string, post: any }) {
   return (
     <PostContainer className={cn("grid grid-cols-[auto_1fr] gap-2 border-0 border-b shadow-none", className)}>
-      <ProfilePicture className="self-start" src={post.profiles.avatar} alt="Profile picture" size={42} />
+      <ProfilePicture className="self-start" src={post.profiles.avatar_url} alt="Profile picture" size={42} />
       
       <div className="grid gap-1 pt-1">
         <div className="grid">
