@@ -41,7 +41,7 @@ async function createLogPostEntry(values: z.infer<typeof logPostSchema>, postId:
 
     const { error: logEntryError } = await supabase.from("log").insert({
       post_id: postId,
-      timestamp: validPostData.datetime,
+      timestamp: validPostData.timestamp,
       name: validPostData.name,
       amount: validPostData.amount,
       unit: validPostData.unit,
