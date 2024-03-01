@@ -2,39 +2,35 @@
 
 import { z } from "zod";
 import { combinedSchema, logPostSchema } from "../utils/newPostSchema";
-import createClient from "@/app/services/supabase/action";
-import { getUser } from "@/app/utils/server/auth";
+import createClient from "@services/supabase/action";
+import { errorMessage, errorNone } from "@utils/returnObjects";
+import { getOwnProfileId } from "@app/utils/server/getProfile";
 
 export async function createPost(values: z.infer<typeof combinedSchema>) {
   try {
     const validPostData = combinedSchema.parse(values)
     const supabase = await createClient()
-    const user = await getUser()
+    const profile = await getOwnProfileId()
 
-    if (!user) throw new Error('User not found. Please sign in.')
+    if (profile.error) throw profile.error;
 
     const { data: postData, error: postError } = await supabase.from("posts").insert({
       type: validPostData.type,
       content: validPostData.content,
       parent_id: validPostData.parent,
-      user_id: user.id,
+      profile_id: profile.data.id,
     }).select('id').single()
 
-    if (postError) {
-      throw postError
-    }
-
+    if (postError) throw postError;
     if (!postData?.id) throw new Error('Post data was not created')
 
-    if (validPostData.type === 'text') throw new Error('Repost not implemented');
+    if (validPostData.type === 'text') return errorNone();
     else if (validPostData.type === 'log') createLogPostEntry(validPostData, postData.id);
-    else if (validPostData.type === 'media') throw new Error('Repost not implemented');
-    else if (validPostData.type === 'repost') throw new Error('Repost not implemented');
-  } catch (error: any) {
-    return { error: { message: error?.message || "Error creating a post" } }
-  }
 
-  return { error: null }
+    throw new Error(`Post type not implemented: ${validPostData.type}`)
+  } catch (error: any) {
+    return errorMessage(error, "Error creating post")
+  }
 }
 
 
@@ -57,6 +53,7 @@ async function createLogPostEntry(values: z.infer<typeof logPostSchema>, postId:
       throw logEntryError
     }
   } catch (error) {
+    // TODO: check if this should be handled in parent post function
     const supabase = await createClient()
     supabase.from('posts').delete().match({ id: postId })
     throw error
