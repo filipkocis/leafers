@@ -1,6 +1,6 @@
 import { getPosts } from "@app/utils/server/getPosts"
 import Error from "@app/components/Error"
-import LinkPost from "./LinkPost"
+import LinkPost from "@app/components/post/LinkPost"
 
 export default async function ExplorePosts() {
   const posts = await getPosts()

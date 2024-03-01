@@ -1,6 +1,6 @@
 import { getFollowedPosts } from "@app/utils/server/getPosts"
 import Error from "@app/components/Error"
-import LinkPost from "./LinkPost"
+import LinkPost from "@app/components/post/LinkPost"
 
 export default async function FollowingPosts() {
   const posts = await getFollowedPosts()

@@ -1,6 +1,6 @@
 import Error from "@app/components/Error";
 import { getPostReplies } from "@app/utils/server/getPosts";
-import LinkPost from "@app/home/[[...slug]]/components/LinkPost";
+import LinkPost from "@app/components/post/LinkPost";
 
 export default async function PostReplies({ id }: { id: string }) {
   const replies = await getPostReplies(id)
