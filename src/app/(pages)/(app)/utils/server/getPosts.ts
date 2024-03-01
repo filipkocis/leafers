@@ -1,5 +1,5 @@
 import createClient from "@services/supabase/server";
-import { errorMessage, dataSome, dataSomeNonNull } from "@utils/returnObjects";
+import { errorMessage, dataSome, dataSomeNonNull, dataNonNull } from "@utils/returnObjects";
 
 type GetPostsConfig = {
   limit: number;
@@ -17,8 +17,9 @@ export async function getPostById(id: string) {
       .single()
 
     if (error) throw error
+    if (!data) throw new Error("No post found")
 
-    return dataSome(data)
+    return dataNonNull(data)
   } catch (error) {
     console.error(error)
     return errorMessage(error, "Failed to load post")
@@ -64,8 +65,9 @@ export async function getLogPostData(id: string) {
       .single()
 
     if (error) throw error
+    if (!data) throw new Error("No log post found")
 
-    return dataSome(data)
+    return dataNonNull(data)
   } catch (error) {
     console.error(error)
     return errorMessage(error, "Failed to load log post")
