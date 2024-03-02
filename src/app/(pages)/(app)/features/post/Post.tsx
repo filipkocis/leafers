@@ -1,10 +1,10 @@
 import { cn } from "@shadcn/lib/utils"
 import { formatPostDate } from "@utils/format"
-import PostData from "./PostData"
-import PostContainer from "./PostContainer"
-import ProfilePicture from "../ProfilePicture"
-import PostInteractionButtons from "./PostInteractionButtons"
-import PostUsername from "./PostUsername"
+import PostData from "./components/PostData"
+import PostContainer from "./components/PostContainer"
+import ProfilePicture from "@app/components/ProfilePicture"
+import PostInteractionButtons from "./components/PostInteractionButtons"
+import PostUsername from "./components/PostUsername"
 
 export default async function Post({ post, className}: { className?: string, post: any }) {
   return (

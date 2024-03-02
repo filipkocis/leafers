@@ -4,7 +4,7 @@ import { getLogPostData } from "@app/utils/server/getPosts"
 import PostContainer from "./PostContainer";
 import Error from "@app/components/Error";
 import { formatUnit } from "@utils/format";
-import { cn } from "@/app/lib/shadcn/lib/utils";
+import { cn } from "@shadcn/lib/utils";
 
 export default async function PostData({ post }: { post: any }) {
   let content;

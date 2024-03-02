@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Post from "@app/components/post/Post";
+import Post from "@app/features/post/Post";
 
 export default function LinkPost({ post, href, className }: { post: any, href: string, className?: string }) {
   return (
