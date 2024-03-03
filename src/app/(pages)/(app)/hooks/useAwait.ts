@@ -50,11 +50,11 @@ type ReturnObject<T> = {
   data: null
 }
 
-export function useAwaitData<T>(fn: (...params: any) => Promise<ReturnObject<T>>, ...params: any): ReturnType<T> {
+export function useAwaitData<T>(fn: (...params: any) => Promise<ReturnObject<T>>, ...params: any): ReturnType<NonNullable<T>> {
   const { data, error, loading } = useAwait(fn, ...params);
 
   if (loading) return { data: null, error: null, loading: true as const }
   if (error != null) return { data: null, error, loading: false as const }
   if (data.error) return { data: null, error: data.error.message, loading: false as const }
-  return { data: data.data as T, error: null, loading: false as const }
+  return { data: data.data as NonNullable<T>, error: null, loading: false as const }
 }
