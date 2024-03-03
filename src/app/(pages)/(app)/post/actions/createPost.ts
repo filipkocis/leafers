@@ -24,8 +24,11 @@ export async function createPost(values: z.infer<typeof combinedSchema>) {
     if (postError) throw postError;
     if (!postData?.id) throw new Error('Post data was not created')
 
-    if (validPostData.type === 'text') return errorNone();
-    else if (validPostData.type === 'log') createLogPostEntry(validPostData, postData.id);
+    if (validPostData.type === 'text')  return errorNone();
+    else if (validPostData.type === 'log') { 
+      await createLogPostEntry(validPostData, postData.id); 
+      return errorNone(); 
+    }
 
     throw new Error(`Post type not implemented: ${validPostData.type}`)
   } catch (error: any) {
@@ -55,7 +58,7 @@ async function createLogPostEntry(values: z.infer<typeof logPostSchema>, postId:
   } catch (error) {
     // TODO: check if this should be handled in parent post function
     const supabase = await createClient()
-    supabase.from('posts').delete().match({ id: postId })
+    await supabase.from('posts').delete().match({ id: postId })
     throw error
   }
 }
