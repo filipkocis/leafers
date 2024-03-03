@@ -1,7 +1,8 @@
 import { Database } from "@utils/types/supabase"
 
 export type Post = Database["public"]["Tables"]["posts"]["Row"]
-export type Profile = Database["public"]["Tables"]["profiles"]["Row"]
+export type ProfileFull = Database["public"]["Tables"]["profiles"]["Row"]
+export type Profile = Omit<ProfileFull, "auth_user_id" | "created_at">
 export type PostWithProfile = Post & { profiles: Profile }
 
 export type UnitTypeEnum = Database["public"]["Enums"]["unit_type"]
