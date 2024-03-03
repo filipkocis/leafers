@@ -23,7 +23,6 @@ export function useAwait<T>(fn: (...params: any) => Promise<T>, ...params: any):
 
   useEffect(() => {
     const awaitData = async () => {
-      console.log("fetching")
       try {
         const result = await fn(...params);
         setData(result);
@@ -42,12 +41,13 @@ export function useAwait<T>(fn: (...params: any) => Promise<T>, ...params: any):
 }
 
 type ReturnObject<T> = {
-  data: T,
-  error: undefined | null
+  data: NonNullable<T>,
+  error: null
 } | {
   error: {
     message: string
-  } 
+  }
+  data: null
 }
 
 export function useAwaitData<T>(fn: (...params: any) => Promise<ReturnObject<T>>, ...params: any): ReturnType<T> {
