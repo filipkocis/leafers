@@ -1,6 +1,8 @@
+"use client"
+
 import { LucideHeart, LucideReplyAll, LucideShare } from "lucide-react";
 
-export default async function PostInteractionButtons({ id }: { id: string }) {
+export default function PostInteractionButtons({ id }: { id: string }) {
   return (
     <div className="col-span-2 flex justify-around [&>*]:p-1 [&>*]:rounded-full"> 
       <div className="hover:text-red-500 hover:bg-red-500/25 hover:shadow-[0_0_0_0.2rem_rgb(239_68_68_/_0.25)]">

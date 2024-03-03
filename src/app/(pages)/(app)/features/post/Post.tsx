@@ -1,3 +1,5 @@
+"use client"
+
 import { cn } from "@shadcn/lib/utils"
 import { formatPostDate } from "@utils/format"
 import PostData from "./components/PostData"
@@ -5,8 +7,9 @@ import PostContainer from "./components/PostContainer"
 import ProfilePicture from "@app/components/ProfilePicture"
 import PostInteractionButtons from "./components/PostInteractionButtons"
 import PostUsername from "./components/PostUsername"
+import { PostWithProfile } from "@app/utils/types"
 
-export default async function Post({ post, className}: { className?: string, post: any }) {
+export default function Post({ post, className}: { post: PostWithProfile, className?: string }) {
   return (
     <PostContainer className={cn("grid grid-cols-[auto_1fr] gap-2 border-0 border-b shadow-none", className)}>
       <ProfilePicture className="self-start" src={post.profiles.avatar_url} alt="Profile picture" size={42} />
@@ -24,7 +27,7 @@ export default async function Post({ post, className}: { className?: string, pos
           <p className="" style={{ wordBreak: "break-word" }}>{post.content}</p>
         </div>
 
-        <PostData post={post} />
+        <PostData id={post.id} type={post.type} />
       </div>
 
       <PostInteractionButtons id={post.id} />
