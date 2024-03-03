@@ -6,3 +6,14 @@ export type PostWithProfile = Post & { profiles: Profile }
 
 export type UnitTypeEnum = Database["public"]["Enums"]["unit_type"]
 export type PostTypeEnum = Database["public"]["Enums"]["post_type"]
+
+export const zodUnitEnum = ['gram', 'miligram', 'second', 'hour'] as const
+export type ZodUnitTypeEnum = typeof zodUnitEnum[number] 
+
+
+// check if enums are equal for zod schema and supabase.ts
+type AreUnitEnumsEqual = ZodUnitTypeEnum extends UnitTypeEnum 
+  ? UnitTypeEnum extends ZodUnitTypeEnum 
+    ? true : false 
+  : false;
+export const areUnitEnumsEqual: AreUnitEnumsEqual = true;

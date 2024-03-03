@@ -27,10 +27,10 @@ import { toast } from "sonner"
 import { capitalize } from "@utils/string"
 import { Loader } from "lucide-react"
 import ProfilePicture from "@app/components/ProfilePicture"
-import { PostType } from "@app/utils/post"
+import { PostTypeEnum } from "@app/utils/types"
 
 export default function RegisterForm({ tabs = "top" }: { tabs?: "top" | "bottom" }) {
-  const [type, setType] = useState<PostType>("text")
+  const [type, setType] = useState<PostTypeEnum>("text")
   const formRef = useRef<HTMLFormElement>(null)
 
   const form = useForm<z.infer<typeof combinedSchema>>({

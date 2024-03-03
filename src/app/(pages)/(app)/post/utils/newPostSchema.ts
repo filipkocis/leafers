@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { unitEnum } from "@app/utils/post";
+import { zodUnitEnum } from "@app/utils/types"
 
 const basePostSchema = z.object({
   content: z.string()
@@ -22,7 +22,7 @@ export const logPostSchema = basePostSchema.extend({
   amount: z.coerce.number()
     .positive({ message: "Amount must be positive" })
     .optional(),
-  unit: z.enum(unitEnum)
+  unit: z.enum(zodUnitEnum)
     .optional(),
   variant: z.string()
     .max(64, { message: "Value is too long" })
