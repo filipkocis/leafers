@@ -3,14 +3,14 @@ import Error from "@app/components/Error"
 import LinkPost from "@app/features/post/LinkPost"
 
 export default async function FollowingPosts() {
-  const posts = await getFollowedPosts()
+  const { data: posts, error } = await getFollowedPosts()
 
-  if (posts.error) return <Error message={posts.error.message} />
+  if (error) return <Error message={error.message} />
 
   return (
     <div className="grid">
-      {posts.data.map((post => (
-        <LinkPost href={`/post/${post.id}`} post={post} key={post.id} />
+      {posts.map((post => (
+        <LinkPost post={post} key={post.id} />
       )))}
     </div>
   )

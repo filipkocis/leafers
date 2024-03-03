@@ -1,6 +1,6 @@
 import { cn } from "@shadcn/lib/utils";
 
-export default function PostUsername({ username, displayName }: { username: string, displayName: string }) {
+export default function PostUsername({ username, displayName }: { username: string, displayName: string | null }) {
   return (
     <div className="overflow-hidden flex items-center gap-2">
       {!!displayName &&
