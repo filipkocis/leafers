@@ -6,7 +6,7 @@ import { Database } from "@utils/types/supabase"
 export default async function createClient() {
   const cookieStore = cookies()
 
-  const supabase = createServerClient<Database, "public", any>(
+  const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
