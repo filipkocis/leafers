@@ -1,6 +1,6 @@
 import { formatAmount, formatPostDate } from "@utils/format";
 import { capitalize } from "@utils/string";
-import { getLogPostData } from "@app/utils/server/getPosts"
+import { getLogPostData } from "../actions/getPostData"
 import PostContainer from "./PostContainer";
 import Error from "@app/components/Error";
 import { formatUnit } from "@utils/format";
