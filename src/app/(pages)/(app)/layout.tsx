@@ -8,7 +8,6 @@ export default async function Layout({ children, newPostForm }: { children: Reac
 
   return (
     <div className="grid">
-      {newPostForm}
       <div className="grid grid-rows-[auto_1fr] relative w-full min-h-[100dvh]">
         <LayoutHeader height={layoutHeaderHeightRem} />
 
@@ -21,6 +20,7 @@ export default async function Layout({ children, newPostForm }: { children: Reac
               <ul className="flex flex-col gap-6 w-min h-full p-2">
                 <NavItems />
                 <NewPostButton />
+                {newPostForm}
                 <LogoutButton />
               </ul>
             </nav>
