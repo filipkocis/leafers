@@ -2,7 +2,7 @@
 
 import { formatAmount, formatPostDate } from "@utils/format";
 import { capitalize } from "@utils/string";
-import { getLogPostData } from "../actions/getPostData"
+import { getLogPostData } from "../utils/getPostData"
 import PostContainer from "./PostContainer";
 import Error from "@app/components/Error";
 import { formatUnit } from "@utils/format";
@@ -10,6 +10,7 @@ import { cn } from "@shadcn/lib/utils";
 import { PostTypeEnum } from "@app/utils/types";
 import { useAwaitData } from "@app/hooks/useAwait";
 import CenteredLoader from "@app/components/CenteredLoader";
+import { useCallback } from "react";
 
 export default function PostData({ id, type }: { id: string, type: PostTypeEnum }) {
   let content;
@@ -32,7 +33,8 @@ export default function PostData({ id, type }: { id: string, type: PostTypeEnum 
 const ellipsisText = "[&>*]:overflow-hidden [&>*]:text-ellipsis whitespace-nowrap" 
 
 function LogPostData({ id }: { id: string }) {
-  const { data: log, error, loading } = useAwaitData(getLogPostData, id)
+  const memoizedGetLogPostData = useCallback(getLogPostData.bind(null, id), [id])
+  const { data: log, error, loading } = useAwaitData(memoizedGetLogPostData)
 
   if (loading) return <CenteredLoader />;
   if (error != null) return <Error message={error} />;
