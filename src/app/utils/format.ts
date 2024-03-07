@@ -1,5 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
-import { UnitEnum } from "@app/utils/post";
+import { UnitTypeEnum } from "@app/utils/types";
 
 export function formatPostDate(date: string) {
   const dateObj = new Date(date)
@@ -8,7 +8,7 @@ export function formatPostDate(date: string) {
   return formated.replace("about ", "")
 }
 
-export function formatUnit(unit: UnitEnum) {
+export function formatUnit(unit: UnitTypeEnum) {
   switch (unit) {
     case 'gram': return 'g';
     case 'miligram': return 'mg';
