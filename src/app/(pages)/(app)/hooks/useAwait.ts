@@ -16,7 +16,7 @@ type ReturnType<T> = {
   data: null,
 }
 
-export function useAwait<T>(fn: (...params: any) => Promise<T>, ...params: any): ReturnType<T> {
+export function useAwait<T>(fn: () => Promise<T>): ReturnType<T> {
   const [data, setData] = useState<Awaited<T> | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -24,7 +24,7 @@ export function useAwait<T>(fn: (...params: any) => Promise<T>, ...params: any):
   useEffect(() => {
     const awaitData = async () => {
       try {
-        const result = await fn(...params);
+        const result = await fn();
         setData(result);
       } catch (error: any) {
         const msg = `${error?.message}` || "An error occurred";
@@ -33,7 +33,7 @@ export function useAwait<T>(fn: (...params: any) => Promise<T>, ...params: any):
       setLoading(false);
     }
     awaitData();
-  }, [fn, ...params])
+  }, [fn])
 
   if (loading === true) return { data: null, error: null, loading: true as const }
   if (error != null) return { data: null, error, loading: false as const }
@@ -50,8 +50,8 @@ type ReturnObject<T> = {
   data: null
 }
 
-export function useAwaitData<T>(fn: (...params: any) => Promise<ReturnObject<T>>, ...params: any): ReturnType<NonNullable<T>> {
-  const { data, error, loading } = useAwait(fn, ...params);
+export function useAwaitData<T>(fn: () => Promise<ReturnObject<T>>): ReturnType<NonNullable<T>> {
+  const { data, error, loading } = useAwait(fn);
 
   if (loading) return { data: null, error: null, loading: true as const }
   if (error != null) return { data: null, error, loading: false as const }
