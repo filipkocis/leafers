@@ -35,10 +35,8 @@ export async function getPostById(id: string) {
 
     if (error) throw error
     if (!data) throw new Error("No post found")
-    if (data.profiles == null) throw new Error("No post profile found")
 
-    // you can remove profile==null check and display it as "removed user"
-    return dataNonNull(data as typeof data & { profiles: NonNullable<typeof data['profiles']>} )
+    return dataNonNull(data)
   } catch (error) {
     console.error(error)
     return errorMessage(error, "Failed to load post")
