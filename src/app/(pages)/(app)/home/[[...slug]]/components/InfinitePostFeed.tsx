@@ -2,7 +2,7 @@
 
 import { PostWithProfile } from "@app/utils/types";
 import { useEffect, useRef, useState } from "react";
-import { getPaginatedPosts } from "@app/actions/posts";
+import { getPaginatedPosts } from "@app/utils/client/getPosts";
 import LinkPost from "@app/features/post/LinkPost";
 import CenteredLoader from "@app/components/CenteredLoader";
 import { toast } from "sonner";

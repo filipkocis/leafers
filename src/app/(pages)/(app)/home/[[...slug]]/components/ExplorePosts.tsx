@@ -1,4 +1,4 @@
-import { getPaginatedPosts } from "@app/actions/posts"
+import { getPaginatedPosts } from "@app/utils/server/getPosts"
 import Error from "@app/components/Error"
 import InfinitePostFeed from "./InfinitePostFeed"
 

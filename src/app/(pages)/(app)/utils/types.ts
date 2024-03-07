@@ -18,3 +18,8 @@ type AreUnitEnumsEqual = ZodUnitTypeEnum extends UnitTypeEnum
     ? true : false 
   : false;
 export const areUnitEnumsEqual: AreUnitEnumsEqual = true;
+
+export type PaginationConfig = {
+  limit: number;
+  offset: number;
+}
