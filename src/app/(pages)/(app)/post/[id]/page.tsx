@@ -1,4 +1,4 @@
-import { getPostById } from "@app/actions/posts"
+import { getPostById } from "../utils/server/getPostById"
 import Error from "@app/components/Error"
 import NewPostForm from "../components/NewPostForm"
 import PostReplies from "./components/PostReplies"
