@@ -29,14 +29,15 @@ import { Loader } from "lucide-react"
 import ProfilePicture from "@app/components/ProfilePicture"
 import { PostTypeEnum } from "@app/utils/types"
 
-export default function RegisterForm({ tabs = "top" }: { tabs?: "top" | "bottom" }) {
+export default function RegisterForm({ tabs = "top", parent }: { tabs?: "top" | "bottom", parent?: string }) {
   const [type, setType] = useState<PostTypeEnum>("text")
   const formRef = useRef<HTMLFormElement>(null)
 
   const form = useForm<z.infer<typeof combinedSchema>>({
     resolver: zodResolver(combinedSchema),
     defaultValues: {
-      timestamp: new Date()
+      timestamp: new Date(),
+      parent: parent,
     },
   })
  

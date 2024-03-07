@@ -16,7 +16,7 @@ export default async function PostPage({ params: { id } }: { params: { id: strin
       </div>
 
       <div className="border-b p-3">
-        <NewPostForm tabs="bottom" />
+        <NewPostForm tabs="bottom" parent={post.id} />
       </div>
 
       <PostReplies id={id} />
