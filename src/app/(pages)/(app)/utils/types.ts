@@ -20,6 +20,10 @@ type AreUnitEnumsEqual = ZodUnitTypeEnum extends UnitTypeEnum
 export const areUnitEnumsEqual: AreUnitEnumsEqual = true;
 
 export type PaginationConfig = {
-  limit: number;
-  offset: number;
+  limit?: number;
+  offset?: number;
+}
+
+export type RepliesParams = {
+  parent_id?: string;
 }
