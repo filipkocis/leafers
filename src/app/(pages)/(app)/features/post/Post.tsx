@@ -8,6 +8,7 @@ import ProfilePicture from "@app/components/ProfilePicture"
 import PostInteractionButtons from "./components/PostInteractionButtons"
 import PostUsername from "./components/PostUsername"
 import { PostWithProfile } from "@app/utils/types"
+import Link from "next/link"
 
 export default function Post({ post, className}: { post: PostWithProfile, className?: string }) {
   return (
@@ -23,7 +24,12 @@ export default function Post({ post, className}: { post: PostWithProfile, classN
             />
             <div className="flex items-center gap-1 text-muted-foreground">
               <p className="text-muted-foreground">•</p>
-              <p className="text-muted-foreground whitespace-nowrap">{formatPostDate(post.created_at)}</p>
+              <Link 
+                href={`/post/${post.id}`} 
+                className="hover:underline text-muted-foreground whitespace-nowrap"
+              >
+                {formatPostDate(post.created_at)}
+              </Link>
             </div>
           </div>
 
