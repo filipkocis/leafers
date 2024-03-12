@@ -15,7 +15,7 @@ export default function InfinitePostFeed({ defaultPosts }: { defaultPosts: PostW
   const [intersecting, setIntersecting] = useState(false)
 
   const ref = useRef<HTMLDivElement>(null);
-  useIntersectionObserver({ ref, cb: setIntersecting });
+  const { unobserve: intersectionUnobserve } = useIntersectionObserver({ ref, cb: setIntersecting });
 
   async function handleLoadMore() {
     if (endOfFeed || loading) return
@@ -25,7 +25,10 @@ export default function InfinitePostFeed({ defaultPosts }: { defaultPosts: PostW
 
     if (error) toast.error(error.message)
     else if (data.length) setPosts([...posts, ...data])
-    else setEndOfFeed(true)
+    else {
+      setEndOfFeed(true)
+      intersectionUnobserve()
+    }
 
     setLoading(false)
   }

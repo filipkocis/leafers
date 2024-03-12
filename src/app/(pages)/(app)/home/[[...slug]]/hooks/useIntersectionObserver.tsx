@@ -1,20 +1,31 @@
 "use client"
 
-import { useEffect, RefObject } from 'react';
+import { useEffect, RefObject, useRef } from 'react';
 
 export function useIntersectionObserver({ ref, cb }: { ref: RefObject<HTMLDivElement>, cb?: (intersecting: boolean) => void }) {
+  const observer = useRef<IntersectionObserver>();
+
+  const unobserve = () => {
+    if (ref.current && observer.current) {
+      observer.current.unobserve(ref.current)
+      observer.current.disconnect()
+    }
+  }
+
   useEffect(() => {
     if (!ref.current) return;
     const current = ref.current;
 
-    const observer = new IntersectionObserver(([entry]) => {
+    observer.current = new IntersectionObserver(([entry]) => {
       if (cb) cb(entry.isIntersecting);
     });
 
-    if (current) observer.observe(current);
+    if (current) observer.current.observe(current);
 
     return () => {
-      if (current) observer.unobserve(current);
+      unobserve();
     };
   }, [cb, ref]);
+
+  return { unobserve };
 };
