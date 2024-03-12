@@ -63,8 +63,16 @@ export default function RegisterForm({ tabs = "top", parent }: { tabs?: "top" | 
 
   const handleTextareaInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target) {
+      const oldHeight = e.target.style.height;
       e.target.style.height = "auto";
-      e.target.style.height = `${e.target.scrollHeight}px`;
+
+      const newHeight = `${e.target.scrollHeight}px`;
+      e.target.style.height = newHeight;
+
+      // timeout hack to prevent top overflow, but it causes a flicker
+      setTimeout(() => {
+        if (oldHeight !== newHeight) resizeForm();
+      }, 0);
     }
   };
 
@@ -81,6 +89,10 @@ export default function RegisterForm({ tabs = "top", parent }: { tabs?: "top" | 
 
   // TODO: create a custom hook for this
   useEffect(() => {
+    resizeForm()
+  }, [formRef, type])
+
+  function resizeForm() {
     if (!formRef.current) return;
     
     const oldHeight = formRef.current.style.height;
@@ -93,7 +105,7 @@ export default function RegisterForm({ tabs = "top", parent }: { tabs?: "top" | 
     setTimeout(() => {
       if (formRef.current) formRef.current.style.height = newHeight;
     }, 0);
-  }, [formRef, type])
+  }
 
   return (
     <Form {...form}>
