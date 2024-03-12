@@ -42,6 +42,7 @@ export default function RegisterForm({ tabs = "top", parent }: { tabs?: "top" | 
   })
  
   function onSubmit(values: z.infer<typeof combinedSchema>) {
+    form.reset()
     const toastId = toast('Creating post...')
 
     // toast.loading spinner doesn't work so this is a quick fix
