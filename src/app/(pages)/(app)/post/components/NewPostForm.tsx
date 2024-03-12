@@ -274,7 +274,7 @@ export default function RegisterForm({ tabs = "top", parent }: { tabs?: "top" | 
   )
 }
 
-function RadioPostItem({ id, value, label, isSelected, onSelect }: { id: string, value: PostType, label: string, isSelected: boolean, onSelect: (value: PostType) => void }) {
+function RadioPostItem({ id, value, label, isSelected, onSelect }: { id: string, value: PostTypeEnum, label: string, isSelected: boolean, onSelect: (value: PostTypeEnum) => void }) {
   return (
     <div className="text-center grid">
       <RadioGroupItem className="hidden" checked={isSelected} value={value} id={id} />
@@ -283,7 +283,7 @@ function RadioPostItem({ id, value, label, isSelected, onSelect }: { id: string,
   )
 }
 
-function PostTabs({ type, setType }: { type: PostType, setType: (type: PostType) => void }) {
+function PostTabs({ type, setType }: { type: PostTypeEnum, setType: (type: PostTypeEnum) => void }) {
   return (
     <RadioGroup defaultValue="comfortable" className="grid grid-cols-[auto,auto,auto] rounded-sm p-1 bg-muted">
       <RadioPostItem onSelect={(v) => setType(v)} isSelected={type === "text"} id="post-text" value="text" label="Text" />
