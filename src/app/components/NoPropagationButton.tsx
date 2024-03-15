@@ -3,7 +3,7 @@
 import { Button, ButtonProps } from "@shadcn/components/ui/button"
 import { forwardRef } from "react"
 
-export const PostButton = forwardRef<HTMLButtonElement, ButtonProps>(
+export const NoPropagationButton = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ onClick, ...props }, ref) => {
     return (
       <Button

@@ -7,7 +7,7 @@ type LinkType = LinkProps & {
   children?: React.ReactNode
 } & React.AnchorHTMLAttributes<HTMLAnchorElement>
 
-export const PostLink = forwardRef<HTMLAnchorElement, LinkType>(
+export const NoPropagationLink = forwardRef<HTMLAnchorElement, LinkType>(
   ({ children, onClick, ...props }, ref) => {
     return (
       <Link
