@@ -1,5 +1,5 @@
 import { cn } from "@shadcn/lib/utils";
-import Link from "next/link";
+import { PostLink } from "./PostLink";
 
 export default function PostUsername({ username, displayName }: { username: string, displayName?: string | null }) {
   return (
@@ -7,7 +7,7 @@ export default function PostUsername({ username, displayName }: { username: stri
       {!!displayName &&
         <p className={cn("overflow-hidden text-ellipsis whitespace-nowrap font-bold text-[1rem]")}>{displayName}</p>
       }
-      <Link 
+      <PostLink 
         href={`/profile/${username}`} 
         className={cn(
           "overflow-hidden text-ellipsis hover:underline ", 
@@ -15,7 +15,7 @@ export default function PostUsername({ username, displayName }: { username: stri
         )}
       >
         @{username}
-      </Link>
+      </PostLink>
     </div>
   )
 }
