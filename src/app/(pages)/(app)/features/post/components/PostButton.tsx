@@ -1,3 +1,5 @@
+"use client"
+
 import { Button, ButtonProps } from "@shadcn/components/ui/button"
 import { forwardRef } from "react"
 
