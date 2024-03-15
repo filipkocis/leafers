@@ -9,7 +9,6 @@ export const PostButton = forwardRef<HTMLButtonElement, ButtonProps>(
       <Button
         ref={ref}
         onClick={(e) => {
-          e.preventDefault()
           e.stopPropagation()
           if (onClick) onClick(e)
         }}
