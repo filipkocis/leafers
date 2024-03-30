@@ -3,8 +3,9 @@
 import Post from "@app/features/post/Post";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { PostWithProfileAndCounts } from "@app/utils/types";
 
-const LinkPost = React.memo(({ post, className }: { post: any, className?: string }) => {
+const LinkPost = React.memo(({ post, className }: { post: PostWithProfileAndCounts, className?: string }) => {
   const router = useRouter()
 
   return (

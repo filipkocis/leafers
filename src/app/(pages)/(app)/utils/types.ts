@@ -4,6 +4,11 @@ export type Post = Database["public"]["Tables"]["posts"]["Row"]
 export type ProfileFull = Database["public"]["Tables"]["profiles"]["Row"]
 export type Profile = Omit<ProfileFull, "auth_user_id" | "created_at">
 export type PostWithProfile = Post & { profiles: Profile | null }
+export type PostWithProfileAndCounts = PostWithProfile & {
+  likes_count: number;
+  replies_count: number;
+  reposts_count: number;
+}
 
 export type UnitTypeEnum = Database["public"]["Enums"]["unit_type"]
 export type PostTypeEnum = Database["public"]["Enums"]["post_type"]
