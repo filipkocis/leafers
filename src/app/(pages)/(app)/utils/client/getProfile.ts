@@ -1,8 +1,8 @@
 "use client"
 
-import createClient from "@/app/services/supabase/client";
-import { getUser } from "@/app/utils/client/auth";
-import { dataNonNull, errorMessage } from "@/app/utils/returnObjects";
+import createClient from "@services/supabase/client";
+import { getUser } from "@utils/client/auth";
+import { dataNonNull, errorMessage } from "@utils/returnObjects";
 
 export async function getOwnProfileId() {
   try {
