@@ -14,8 +14,9 @@ import {
 import NewPostForm from "@app/post/components/NewPostForm"
 import { useRouter } from "next/navigation"
 import { useWindowSize } from "@hooks/useWindowSize"
+import Error from "@app/components/Error"
 
-export default function ResponsiveDrawerDialog() {
+export default function ResponsiveDrawerDialog({ parent, username, error }: { parent?: string, username?: string, error?: string }) {
   const router = useRouter();
   const windowSize = useWindowSize()
   const isDesktop = (windowSize.width || 0) > 768
@@ -24,7 +25,10 @@ export default function ResponsiveDrawerDialog() {
     return (
       <Dialog open={true} onOpenChange={() => router.back()}>
         <DialogContent className="sm:max-w-[500px]">
-          <NewPostForm />
+          {error ? <Error message={error} /> : <>
+            <ReplyingTo username={username} />
+            <NewPostForm parent={parent} />
+          </>}
         </DialogContent>
       </Dialog>
     )
@@ -35,7 +39,10 @@ export default function ResponsiveDrawerDialog() {
       if (!open) router.back()
     }}>
       <DrawerContent>
-        <NewPostForm />
+        {error ? <Error message={error} /> : <>
+          <ReplyingTo username={username} />
+          <NewPostForm parent={parent} />
+        </>}
 
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
@@ -44,5 +51,16 @@ export default function ResponsiveDrawerDialog() {
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
+  )
+}
+
+function ReplyingTo({ username }: { username?: string }) {
+  if (!username) return null;
+
+  return (
+    <div className="flex gap-2 items-center text-[0.85rem]">
+      <span className="font-semibold text-muted-foreground">Replying to</span>
+      <span className="text-primary font-bold">@{username}</span>
+    </div>
   )
 }
