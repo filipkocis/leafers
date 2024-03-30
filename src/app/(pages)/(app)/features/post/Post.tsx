@@ -7,11 +7,11 @@ import PostContainer from "./components/PostContainer"
 import ProfilePicture from "@app/components/ProfilePicture"
 import PostInteractionButtons from "./components/PostInteractionButtons"
 import PostUsername from "./components/PostUsername"
-import { PostWithProfile } from "@app/utils/types"
+import { PostWithProfileAndCounts } from "@app/utils/types"
 import Link from "next/link"
 import { NoPropagationLink } from "@components/NoPropagationLink"
 
-export default function Post({ post, className}: { post: PostWithProfile, className?: string }) {
+export default function Post({ post, className}: { post: PostWithProfileAndCounts, className?: string }) {
   const username = post.profiles?.username || "deleted" 
   const displayName = post.profiles?.display_name 
 
@@ -50,7 +50,12 @@ export default function Post({ post, className}: { post: PostWithProfile, classN
         <PostData id={post.id} type={post.type} />
       </div>
 
-      <PostInteractionButtons id={post.id} />
+      <PostInteractionButtons 
+        id={post.id} 
+        likes={post.likes_count} 
+        replies={post.replies_count} 
+        reposts={post.reposts_count} 
+      />
     </PostContainer>
   )
 }
