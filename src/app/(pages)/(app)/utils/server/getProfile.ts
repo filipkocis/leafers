@@ -86,3 +86,22 @@ export async function getOwnProfileAvatar() {
     return errorMessage(error, "Could not get profile avatar");
   }
 }
+
+export async function getUsernameByPostId(post_id: string) {
+  try {
+    const supabase = await createClient();
+
+    const { data, error } = await supabase
+      .from("posts")
+      .select("profile:profiles(username)")
+      .eq("id", post_id)
+      .single();
+
+    if (error) throw error
+    if (!data.profile) throw new Error("Username not found");
+
+    return dataNonNull(data.profile.username);
+  } catch (error) {
+    return errorMessage(error, "Could not get username");
+  }
+}
