@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { combinedSchema, logPostSchema } from "../utils/newPostSchema";
 import createClient from "@services/supabase/action";
-import { errorMessage, errorNone } from "@utils/returnObjects";
+import { dataNonNull, errorMessage } from "@utils/returnObjects";
 import { getOwnProfileId } from "@app/utils/server/getProfile";
 
 export async function createPost(values: z.infer<typeof combinedSchema>) {
@@ -24,10 +24,10 @@ export async function createPost(values: z.infer<typeof combinedSchema>) {
     if (postError) throw postError;
     if (!postData?.id) throw new Error('Post data was not created')
 
-    if (validPostData.type === 'text')  return errorNone();
+    if (validPostData.type === 'text')  return dataNonNull({ id: postData.id });
     else if (validPostData.type === 'log') { 
       await createLogPostEntry(validPostData, postData.id); 
-      return errorNone(); 
+      return dataNonNull({ id: postData.id }); 
     }
 
     throw new Error(`Post type not implemented: ${validPostData.type}`)
