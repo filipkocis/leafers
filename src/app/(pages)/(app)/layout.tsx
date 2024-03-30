@@ -2,8 +2,14 @@ import NavItems from "@app/components/NavItems";
 import LogoutButton from "@app/components/LogoutButton";
 import NewPostButton from "@app/components/NewPostButton";
 import LayoutHeader from "@app/components/layout/LayoutHeader";
+import ProfileIdProvider from "./contexts/profileIdContext";
+import { getOwnProfileId } from "./utils/server/getProfile";
+import { RedirectType, redirect } from "next/navigation";
 
 export default async function Layout({ children, newPostForm }: { children: React.ReactNode, newPostForm: React.ReactNode }) {
+  const { data: profileId, error: profileIdError } = await getOwnProfileId()
+  if (profileIdError) redirect('/', RedirectType.replace)
+
   const layoutHeaderHeightRem = "4.6rem"
 
   return (
@@ -26,9 +32,11 @@ export default async function Layout({ children, newPostForm }: { children: Reac
             </nav>
           </div>
 
-          <main className="grid md:w-[42rem] border-l border-r">
-            {children}
-          </main>
+          <ProfileIdProvider value={profileId}>
+            <main className="grid md:w-[42rem] border-l border-r">
+              {children}
+            </main>
+          </ProfileIdProvider>
         </div>
       </div>
 
