@@ -39,7 +39,7 @@ export default function Post({ post, className}: { post: PostWithProfileAndCount
                 href={`/post/${post.id}`} 
                 className="hover:underline text-muted-foreground whitespace-nowrap"
               >
-                {formatPostDate(post.created_at)}
+                <span suppressHydrationWarning>{formatPostDate(post.created_at)}</span>
               </Link>
             </div>
           </div>
