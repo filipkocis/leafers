@@ -1,5 +1,6 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import NEXT_PUBLIC_SUPABASE_SCHEMA from './supabase_schema'
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({
@@ -12,6 +13,7 @@ export async function middleware(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      db: { schema: NEXT_PUBLIC_SUPABASE_SCHEMA },
       cookies: {
         get(name: string) {
           return request.cookies.get(name)?.value

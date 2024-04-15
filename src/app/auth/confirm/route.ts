@@ -2,6 +2,7 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { type EmailOtpType } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
+import NEXT_PUBLIC_SUPABASE_SCHEMA from '@/supabase_schema'
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
@@ -17,6 +18,7 @@ export async function GET(request: NextRequest) {
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
+        db: { schema: NEXT_PUBLIC_SUPABASE_SCHEMA },
         cookies: {
           get(name: string) {
             return cookieStore.get(name)?.value

@@ -10,6 +10,7 @@ export async function getOwnProfileData() {
     if (!user) throw new Error("User not found");
 
     const { data: profile, error } = await supabase
+      .schema("public")
       .from("profiles")
       .select("*")
       .eq("auth_user_id", user.id)
@@ -32,6 +33,7 @@ export async function getOwnProfileId() {
     if (!user) throw new Error("User not found");
 
     const { data: profile, error } = await supabase
+      .schema("public")
       .from("profiles")
       .select("id")
       .eq("auth_user_id", user.id)
@@ -51,6 +53,7 @@ export async function getProfileDataByUsername(username: string) {
     const supabase = await createClient();
 
     const { data: profile, error } = await supabase
+      .schema("public")
       .from("profiles")
       .select("*")
       .eq("username", username)
@@ -73,6 +76,7 @@ export async function getOwnProfileAvatar() {
     if (!user) throw new Error("User not found");
 
     const { data: profile, error } = await supabase
+      .schema("public")
       .from("profiles")
       .select("avatar_url")
       .eq("auth_user_id", user.id)

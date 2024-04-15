@@ -4,6 +4,7 @@ import { z } from "zod";
 import registerUserSchema from "../utils/registerUserSchema";
 import createClient from "@services/supabase/action";
 import { RedirectType, redirect } from "next/navigation";
+import { dataNone, errorMessage } from "@/app/utils/returnObjects";
 
 export async function registerUser(values: z.infer<typeof registerUserSchema>) {
   try {
@@ -22,7 +23,7 @@ export async function registerUser(values: z.infer<typeof registerUserSchema>) {
     }
    
     if (user?.id) {
-      const { error: insertError } = await supabase.from("profiles").insert({
+      const { error: insertError } = await supabase.schema("public").from("profiles").insert({
         auth_user_id: user.id,
         username: validUserData.username
       })
@@ -38,9 +39,11 @@ export async function registerUser(values: z.infer<typeof registerUserSchema>) {
         throw loginError
       }
     }
+
+    return dataNone()
   } catch (error) {
     console.log(error)
-    return error
+    return errorMessage(error, "Could not register user")
   }
   
   redirect('/home', RedirectType.replace)
