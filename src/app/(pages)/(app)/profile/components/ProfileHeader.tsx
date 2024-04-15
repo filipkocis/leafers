@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function ProfileHeaderSection({ profile }: { profile: { username: string } }) {
+export default function ProfileHeader({ profile }: { profile: { username: string } }) {
   return (
     <div className="flex flex-col items-center gap-6 pt-16">
       <div className="rounded-xl bg-green-500/25 p-4">
