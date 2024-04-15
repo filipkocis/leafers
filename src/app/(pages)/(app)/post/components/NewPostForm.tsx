@@ -28,10 +28,20 @@ import { capitalize } from "@utils/string"
 import { Loader } from "lucide-react"
 import ProfilePicture from "@app/components/ProfilePicture"
 import { PostTypeEnum } from "@app/utils/types"
+import { useRouter } from "next/navigation"
 
-export default function RegisterForm({ tabs = "top", parent }: { tabs?: "top" | "bottom", parent?: string }) {
+export default function NewPostForm({ 
+  tabs = "top", 
+  parent, 
+  modalCloser 
+}: { 
+  tabs?: "top" | "bottom", 
+  parent?: string, 
+  modalCloser?: () => void 
+}) {
   const [type, setType] = useState<PostTypeEnum>("text")
   const formRef = useRef<HTMLFormElement>(null)
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof combinedSchema>>({
     resolver: zodResolver(combinedSchema),
@@ -53,11 +63,14 @@ export default function RegisterForm({ tabs = "top", parent }: { tabs?: "top" | 
       </div>
     ), { id: toastId })
 
-    createPost(values).then(data => {
-      if (data?.error) toast.error(data.error.message, { id: toastId })
-      else toast.success(`${capitalize(values.type)} post has been created`, { id: toastId })
+    createPost(values).then(({ error }) => {
+      if (error) toast.error(error.message, { id: toastId });
+      else toast.success(`${capitalize(values.type)} post has been created`, { id: toastId });
     }).catch(err => {
       toast.error(err.message, { id: toastId })
+    }).finally(() => {
+      if (modalCloser) modalCloser();
+      router.refresh();
     })
   }
 
@@ -112,19 +125,8 @@ export default function RegisterForm({ tabs = "top", parent }: { tabs?: "top" | 
       <form 
         ref={formRef}
         onSubmit={form.handleSubmit(onSubmit)} 
-        className="flex flex-col gap-3 transition-all overflow-y-hidden p-1">
-          <FormField
-            control={form.control}
-            name="type"
-            render={({ field }) => (
-              <FormItem className="hidden">
-                <FormControl>
-                  <Input {...field} type="text" />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-
+        className="flex flex-col gap-3 transition-all overflow-y-hidden p-1"
+      >
         <input type="hidden" name="type" value={type} />
 
         {tabs === "top" && <PostTabs type={type} setType={setType} />} 

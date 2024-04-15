@@ -21,13 +21,17 @@ export default function ResponsiveDrawerDialog({ parent, username, error }: { pa
   const windowSize = useWindowSize()
   const isDesktop = (windowSize.width || 0) > 768
 
+  const onOpenChange = (open: boolean) => {
+    if (!open) router.back()
+  }
+
   if (isDesktop) {
     return (
-      <Dialog open={true} onOpenChange={() => router.back()}>
+      <Dialog open={true} onOpenChange={onOpenChange}>
         <DialogContent className="sm:max-w-[500px]">
           {error ? <Error message={error} /> : <>
             <ReplyingTo username={username} />
-            <NewPostForm parent={parent} />
+            <NewPostForm modalCloser={() => onOpenChange(false)} parent={parent} />
           </>}
         </DialogContent>
       </Dialog>
@@ -35,13 +39,11 @@ export default function ResponsiveDrawerDialog({ parent, username, error }: { pa
   }
 
   return (
-    <Drawer open={true} onOpenChange={(open) => {
-      if (!open) router.back()
-    }}>
+    <Drawer open={true} onOpenChange={onOpenChange}>
       <DrawerContent>
         {error ? <Error message={error} /> : <>
           <ReplyingTo username={username} />
-          <NewPostForm parent={parent} />
+          <NewPostForm modalCloser={() => onOpenChange(false)} parent={parent} />
         </>}
 
         <DrawerFooter className="pt-2">
