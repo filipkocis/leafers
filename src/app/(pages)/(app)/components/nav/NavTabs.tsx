@@ -17,13 +17,13 @@ export default function NavTabs({ check, items }: { check: (page: string) => boo
         gridTemplateColumns: `repeat(${items.length}, auto)`
       }}>
       {items.map((item, index) => (
-        <ProfileNavItem selected={check(item.page)} href={item.href} label={item.label} key={index} />
+        <NavItem selected={check(item.page)} href={item.href} label={item.label} key={index} />
       ))}
     </div>  
   )
 }
 
-function ProfileNavItem({ href, label, selected }: { href: string, selected: boolean, label: string }) {
+function NavItem({ href, label, selected }: { href: string, selected: boolean, label: string }) {
   return (
     <Link 
       className="transition-all hover:bg-muted flex justify-center font-semibold text-muted-foreground" 
