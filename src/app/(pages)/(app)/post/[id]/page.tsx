@@ -1,8 +1,8 @@
 import { getPostById } from "../utils/server/getPostById"
 import Error from "@app/components/Error"
 import NewPostForm from "../components/NewPostForm"
-import PostReplies from "./components/PostReplies"
 import Post from "@app/features/post/Post"
+import ServerFeedWrapper from "@app/components/ServerFeedWrapper"
 
 export default async function PostPage({ params: { id } }: { params: { id: string }}) {
   const { data: post, error } = await getPostById(id)
@@ -19,7 +19,7 @@ export default async function PostPage({ params: { id } }: { params: { id: strin
         <NewPostForm tabs="bottom" parent={post.id} />
       </div>
 
-      <PostReplies id={id} />
+      <ServerFeedWrapper parentId={id} />
     </div>
   )
 }
