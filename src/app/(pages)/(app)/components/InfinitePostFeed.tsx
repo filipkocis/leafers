@@ -1,15 +1,22 @@
 "use client"
 
-import { PostWithProfileAndCounts } from "@app/utils/types";
+import { PostTypeEnum, PostWithProfileAndCounts } from "@app/utils/types";
 import { useEffect, useRef, useState } from "react";
 import { getPaginatedPosts } from "@app/utils/client/getPosts";
 import LinkPost from "@app/features/post/LinkPost";
 import CenteredLoader from "@app/components/CenteredLoader";
 import { toast } from "sonner";
-import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
+import { useIntersectionObserver } from "@app/hooks/useIntersectionObserver";
 
-export default function InfinitePostFeed({ defaultPosts }: { defaultPosts: PostWithProfileAndCounts[] }) {
-  const [posts, setPosts] = useState(defaultPosts)
+export default function InfinitePostFeed({ 
+  profileId, parentId, type, defaultPosts
+}: { 
+  profileId?: string, 
+  parentId?: string, 
+  type?: "reply" | PostTypeEnum,
+  defaultPosts?: PostWithProfileAndCounts[]
+}) {
+  const [posts, setPosts] = useState(defaultPosts || [])
   const [loading, setLoading] = useState(false)
   const [endOfFeed, setEndOfFeed] = useState(false)
   const [intersecting, setIntersecting] = useState(false)
@@ -21,7 +28,13 @@ export default function InfinitePostFeed({ defaultPosts }: { defaultPosts: PostW
     if (endOfFeed || loading) return
     setLoading(true)
 
-    const { data, error } = await getPaginatedPosts({ limit: 10, offset: posts.length })
+    const { data, error } = await getPaginatedPosts({ 
+      limit: 10, 
+      offset: posts.length,
+      profile_id: profileId,
+      type: type,
+      parent_id: parentId,
+    })
 
     if (error) toast.error(error.message)
     else if (data.length) setPosts([...posts, ...data])

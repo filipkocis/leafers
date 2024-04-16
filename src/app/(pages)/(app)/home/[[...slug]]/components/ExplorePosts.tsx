@@ -1,6 +1,6 @@
 import { getPaginatedPosts } from "@app/utils/server/getPosts"
 import Error from "@app/components/Error"
-import InfinitePostFeed from "./InfinitePostFeed"
+import InfinitePostFeed from "@app/components/InfinitePostFeed"
 
 export default async function ExplorePosts() {
   const { data: posts, error } = await getPaginatedPosts({ limit: 10, offset: 0 })
