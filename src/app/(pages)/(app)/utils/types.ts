@@ -32,3 +32,5 @@ export type PaginationConfig = {
 export type RepliesParams = {
   parent_id?: string;
 }
+
+export type PaginatedPostsParams = RepliesParams & PaginationConfig & { profile_id?: string, type?: PostTypeEnum | "reply" }
