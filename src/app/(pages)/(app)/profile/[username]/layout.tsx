@@ -12,9 +12,7 @@ export default async function Profile({ params: { username }, children } : { chi
       <ProfileHeader profile={profile} />
       <ProfileNav username={profile.username} />
 
-      <div className="flex flex-col">
-        {children}
-      </div>
+      {children}
     </div>
   )
 }

@@ -20,9 +20,5 @@ export default async function ServerFeedWrapper({
 
   if (error) return <Error message={error.message} />
 
-  return (
-    <div className="grid">
-      <InfinitePostFeed type={type} profileId={profileId} parentId={parentId} defaultPosts={posts} />
-    </div>
-  )
+  return <InfinitePostFeed type={type} profileId={profileId} parentId={parentId} defaultPosts={posts} />
 }
