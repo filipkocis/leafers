@@ -74,7 +74,7 @@ export default function PostInteractionButtons({ id, likes, replies, reposts }: 
         </div>
       </ButtonWrapper>
       <ButtonWrapper>
-        <div className="hover:text-primary">
+        <div className="hover:text-primary cursor-not-allowed">
           <div className="p-1 rounded-full group-hover:bg-primary/25 group-hover:shadow-[0_0_0_0.2rem_hsl(var(--primary)_/_25%)]">
             <LucideShare size={16} />
           </div>
