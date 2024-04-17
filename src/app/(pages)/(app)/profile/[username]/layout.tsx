@@ -8,7 +8,7 @@ export default async function Profile({ params: { username }, children } : { chi
   if (error) redirect("/404", RedirectType.replace)
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col">
       <ProfileHeader profile={profile} />
       <ProfileNav username={profile.username} />
 
