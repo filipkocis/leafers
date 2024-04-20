@@ -57,7 +57,7 @@ export default function InfinitePostFeed({
         <LinkPost key={post.id} post={post} />
       ))}
 
-      <div ref={ref} className="!h-0 invisible" />
+      <div ref={ref} className="!h-1 invisible" />
 
       {loading && <CenteredLoader className="m-4" />}
     </div>
