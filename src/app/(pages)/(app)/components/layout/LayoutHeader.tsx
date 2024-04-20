@@ -2,7 +2,7 @@ import { Input } from "@shadcn/components/ui/input";
 import Image from "next/image";
 import ProfilePicture from "@app/components/ProfilePicture";
 import { getOwnProfileData } from "@app/utils/server/getProfile";
-import Error from "../Error";
+import Error from "@app/components/Error";
 
 export default async function LayoutHeader({ height }: { height: string }) {
   let profile = await getOwnProfileData()
@@ -12,7 +12,7 @@ export default async function LayoutHeader({ height }: { height: string }) {
   return (
     <header 
       style={{ height }} 
-      className="backdrop-blur-md border sticky top-0 px-4 py-3 gap-6 border-b grid grid-cols-[auto_1fr_auto] items-center"
+      className="z-50 backdrop-blur-md border sticky top-0 px-4 py-3 gap-6 border-b grid grid-cols-[auto_1fr_auto] items-center"
     >
       <div className="flex items-center gap-2">
         <Image src="/leaf.png" alt="Leafers logo" width={40} height={40} /> 
