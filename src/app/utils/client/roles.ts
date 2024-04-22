@@ -14,3 +14,21 @@ export async function isAdmin() {
     return false
   }
 }
+
+export async function hasRole(role: string) {
+  try {
+    const supabase = createClient()
+
+    const { count, error } = await supabase
+      .from("roles")
+      .select("*", { head: true, count: "exact" })
+      .eq("role", role)
+      .single() 
+
+    if (error || !count) throw error
+
+    return count > 0
+  } catch (error) {
+    return false
+  }
+}
