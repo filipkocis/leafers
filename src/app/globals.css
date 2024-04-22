@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
  
+.before-bg-fill {
+  position: relative;
+}
+.before-bg-fill::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: hsl(var(--background) / 1);
+  z-index: -1;
+  border-radius: var(--radius);
+}
+
+.animate-shimmer {
+  animation: shimmer 4s infinite linear;
+}
+@keyframes shimmer {
+  from {
+    transform: translateY(50%) translateX(-10%);
+  }
+  25%, to {
+    transform: translateY(-100%) translateX(100%);
+  }
+}
 
 @layer base {
   :root {
