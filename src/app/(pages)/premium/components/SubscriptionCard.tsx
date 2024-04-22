@@ -1,11 +1,15 @@
-import { Button } from "@shadcn/components/ui/button"
 import { Card } from "@shadcn/components/ui/card"
 import { LucideCheck } from "lucide-react"
 import { SubscriptionType } from "../utils/types"
 import { cn } from "@shadcn/lib/utils"
 import ProfileBadge from "@app/profile/components/ProfileBadge"
+import SubscriptionButton from "./SubscriptionButton"
+import { getSubscriptionState } from "../utils/server/subscription"
+import { Button } from "@shadcn/components/ui/button"
 
-export default function SubscriptionCard(subscription: SubscriptionType) {
+export default async function SubscriptionCard(subscription: SubscriptionType) {
+  const { data: subscriptionState } = await getSubscriptionState(subscription.name)
+
   return (
     <Card className={cn(
       "w-80 min-h-[28rem] grid grid-rows-[auto,auto,auto,1fr] gap-4 p-4",
@@ -27,11 +31,16 @@ export default function SubscriptionCard(subscription: SubscriptionType) {
         </p>
       </div>
 
-      <Button className={cn(
-        subscription.extra?.button,
-      )}>
-        {subscription.extra?.cta || "Subscribe"}
-      </Button>
+      {subscriptionState ? (
+        <SubscriptionButton 
+          subscriptionState={subscriptionState} 
+          subscriptionName={subscription.name}
+          text={subscription.extra?.cta} 
+          className={subscription.extra?.button} 
+        />
+      ) : (
+        <Button disabled variant="secondary">Error</Button>
+      )}
 
       <div className="border-foreground/50 border-t h-0 w-full my-2"></div>
       
