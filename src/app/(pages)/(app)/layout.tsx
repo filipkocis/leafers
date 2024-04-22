@@ -1,15 +1,17 @@
-import NavItems from "@app/components/NavItems";
 import LogoutButton from "@app/components/LogoutButton";
 import NewPostButton from "@app/components/NewPostButton";
 import LayoutHeader from "@app/components/layout/LayoutHeader";
 import ProfileIdProvider from "./contexts/profileIdContext";
 import { getOwnProfileId } from "./utils/server/getProfile";
 import { RedirectType, redirect } from "next/navigation";
+import SideNavItems from "./components/nav/SideNavItems";
+import { isAdmin } from "@/app/utils/server/roles";
 
 export default async function Layout({ children, newPostForm }: { children: React.ReactNode, newPostForm: React.ReactNode }) {
   const { data: profileId, error: profileIdError } = await getOwnProfileId()
   if (profileIdError) redirect('/', RedirectType.replace)
 
+  const adminPrivileges = await isAdmin()
   const layoutHeaderHeightRem = "4.6rem"
 
   return (
@@ -24,7 +26,7 @@ export default async function Layout({ children, newPostForm }: { children: Reac
               className="sticky w-full items-start flex justify-end overflow-y-auto"
             >
               <ul className="flex flex-col gap-6 w-min h-full p-2">
-                <NavItems />
+                <SideNavItems adminPrivileges={adminPrivileges} />
                 <NewPostButton />
                 {newPostForm}
                 <LogoutButton />
