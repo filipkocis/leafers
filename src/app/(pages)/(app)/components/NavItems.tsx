@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation"
 import { 
   LucideCctv, 
   LucideCpu, 
+  LucideFlame, 
   LucideHome, 
   LucideKey, 
   LucideLeaf, 
@@ -24,6 +25,7 @@ export default function NavItems() {
       <NavButton href="/leaderboard" label="Leaderboard" Icon={LucideMedal} /> 
       <NavButton href="/profile" label="Profile" Icon={LucideLeaf} /> 
       <NavButton href="/ai" label="AI" Icon={LucideCpu} /> 
+      <NavButton href="/premium" label="Premium" Icon={LucideFlame} /> 
       <NavButton href="/admin" label="Admin" Icon={LucideKey} /> 
     </div>
   )
