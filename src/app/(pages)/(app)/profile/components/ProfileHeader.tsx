@@ -36,7 +36,7 @@ export default async function ProfileHeader({ profile }: { profile: ProfileFull 
 
       <div className="grid items-center grid-cols-[1fr,auto,1fr] gap-6">
         <div className="flex gap-2 items-center justify-center flex-wrap">
-          {badges?.map((badge, i) => <ProfileBadge key={badge.role} role={badge.role} index={i} />)}
+          {badges.map((badge, i) => <ProfileBadge key={badge.role} role={badge.role} index={i} />)}
         </div> 
         <div className="rounded-xl bg-green-500/25 p-4 before-bg-fill outline-4 outline outline-background">
           <Image 

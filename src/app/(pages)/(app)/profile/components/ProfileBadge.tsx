@@ -1,12 +1,12 @@
 import { cn } from "@shadcn/lib/utils";
 import { capitalize } from "@/app/utils/string";
 
-export default function ProfileBadge({ role, index }: { role: string, index: number }) {
+export default function ProfileBadge({ role, index = 0 }: { role: string, index?: number }) {
   const badgeStyle = getBadgeStyle(role)
 
   return (
     <div className={cn(
-      "relative rounded-lg overflow-hidden cursor-pointer", 
+      "relative z-0 rounded-lg overflow-hidden cursor-pointer", 
       !!badgeStyle.ring && "p-[2px]",
 
       !!badgeStyle.shine && "shadow-[0_0_8px_1px_white]",
