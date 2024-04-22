@@ -7,7 +7,7 @@ export async function isAdmin() {
     const { data, error } = await supabase.rpc("check_admin_role").select("*").single() 
     if (error) throw error
 
-    return true
+    return data
   } catch (error) {
     return false
   }
@@ -17,15 +17,10 @@ export async function hasRole(role: string) {
   try {
     const supabase = await createClient()
 
-    const { count, error } = await supabase
-      .from("roles")
-      .select("*", { head: true, count: "exact" })
-      .eq("role", role)
-      .single() 
+    const { data, error } = await supabase.rpc("check_role", { role }).select("*").single() 
+    if (error) throw error
 
-    if (error || !count) throw error
-
-    return count > 0
+    return data
   } catch (error) {
     return false
   }
