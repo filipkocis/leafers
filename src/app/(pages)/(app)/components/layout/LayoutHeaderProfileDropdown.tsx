@@ -59,7 +59,7 @@ export function LayoutHeaderProfileDropdown({
 
 function MenuItemWrapper({ label, Icon }: { label: string, Icon: LucideIcon }) {
   return (
-    <div className="grid grid-cols-[auto,1fr] px-2 py-1.5 text-sm items-center rounded-sm hover:bg-accent hover:text-accent-foreground">
+    <div className="transition-colors grid grid-cols-[auto,1fr] px-2 py-1.5 text-sm items-center rounded-sm hover:bg-accent hover:text-accent-foreground">
       <Icon className="mr-2 h-4 w-4" />
       <span>{label}</span>
     </div>
