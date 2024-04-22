@@ -9,12 +9,13 @@ import { toast } from "sonner";
 import { useIntersectionObserver } from "@app/hooks/useIntersectionObserver";
 
 export default function InfinitePostFeed({ 
-  profileId, parentId, type, defaultPosts
+  profileId, parentId, type, defaultPosts, following
 }: { 
   profileId?: string, 
   parentId?: string, 
   type?: "reply" | PostTypeEnum,
-  defaultPosts?: PostWithProfileAndCounts[]
+  defaultPosts?: PostWithProfileAndCounts[],
+  following?: boolean,
 }) {
   const [posts, setPosts] = useState(defaultPosts || [])
   const [loading, setLoading] = useState(false)
@@ -34,6 +35,7 @@ export default function InfinitePostFeed({
       profile_id: profileId,
       type: type,
       parent_id: parentId,
+      following: following,
     })
 
     if (error) toast.error(error.message)

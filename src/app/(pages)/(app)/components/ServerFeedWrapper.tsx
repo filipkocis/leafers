@@ -4,11 +4,12 @@ import { getPaginatedPosts } from "@app/utils/server/getPosts"
 import { PostTypeEnum } from "@app/utils/types"
 
 export default async function ServerFeedWrapper({ 
-  profileId, parentId, type  
+  profileId, parentId, type, following  
 }: {
   profileId?: string,
   parentId?: string,
-  type?: "reply" | PostTypeEnum
+  type?: "reply" | PostTypeEnum,
+  following?: boolean
 }) {
   const { data: posts, error: error } = await getPaginatedPosts({ 
     limit: 10,
@@ -16,9 +17,26 @@ export default async function ServerFeedWrapper({
     type: type,
     profile_id: profileId,
     parent_id: parentId,
+    following: following,
   })
 
   if (error) return <Error message={error.message} />
 
-  return <InfinitePostFeed type={type} profileId={profileId} parentId={parentId} defaultPosts={posts} />
+  if (!posts.length) {
+    return (
+      <div className="h-full flex items-center justify-center text-lg text-gray-500">
+        No posts found :(
+      </div>
+    )
+  }
+
+  return (
+    <InfinitePostFeed 
+      type={type} 
+      profileId={profileId} 
+      parentId={parentId} 
+      defaultPosts={posts} 
+      following={following} 
+    />
+  )
 }

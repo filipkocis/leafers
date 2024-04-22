@@ -1,23 +1,17 @@
 import createClient from "@services/supabase/server";
 import { errorMessage, dataNonNull } from "@utils/returnObjects";
-import { PaginatedPostsParams, PaginationConfig } from "../types";
+import { PaginatedPostsParams } from "../types";
 import { getNumberFromSqlCount } from "../helpers";
 
-export async function getFollowedPosts(config: PaginationConfig = { limit: 10, offset: 0 }) {
-  try {
-    throw new Error("following not implemented")
-  } catch (error) {
-    console.error(error)
-    return errorMessage(error, "Failed to load posts")
-  }
-}
-
-export async function getPaginatedPosts({ parent_id, limit = 10, offset = 0, profile_id, type }: PaginatedPostsParams) {
+export async function getPaginatedPosts({ 
+  parent_id, limit = 10, offset = 0, profile_id, type, following = false 
+}: PaginatedPostsParams) {
   try {
     const supabase = await createClient();
 
-    let query = supabase
-      .from('posts')
+    const baseQuery = following ? supabase.rpc('get_followed_posts') : supabase.from('posts'); 
+
+    let query = baseQuery
       .select('*, profiles!inner(id, username, display_name, avatar_url), replies_count:posts!parent_id(count), likes_count:likes(count), reposts_count:reposts!post_id(count)')
       .order('created_at', { ascending: false })
       .limit(limit)
