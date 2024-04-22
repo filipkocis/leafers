@@ -1,11 +1,11 @@
 import LogoutButton from "@app/components/LogoutButton";
 import NewPostButton from "@app/components/NewPostButton";
 import LayoutHeader from "@app/components/layout/LayoutHeader";
-import ProfileIdProvider from "./contexts/profileIdContext";
-import { getOwnProfileId } from "./utils/server/getProfile";
+import ProfileIdProvider from "@app/contexts/profileIdContext";
+import { getOwnProfileId } from "@app/utils/server/getProfile";
 import { RedirectType, redirect } from "next/navigation";
-import SideNavItems from "./components/nav/SideNavItems";
-import { isAdmin } from "@/app/utils/server/roles";
+import SideNavItems from "@app/components/nav/SideNavItems";
+import { isAdmin } from "@utils/server/roles";
 
 export default async function Layout({ children, newPostForm }: { children: React.ReactNode, newPostForm: React.ReactNode }) {
   const { data: profileId, error: profileIdError } = await getOwnProfileId()
