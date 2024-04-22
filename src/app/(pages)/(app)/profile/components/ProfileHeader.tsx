@@ -7,6 +7,7 @@ import { ProfileFull } from "@app/utils/types";
 import FollowButton from "./FollowButton";
 import { getFollowStatus } from "@app/actions/getFollower";
 import ProfileStats from "./ProfileStats";
+import ProfilePicture from "@app/components/ProfilePicture";
 
 export default async function ProfileHeader({ isLeafer, profile }: { isLeafer: boolean, profile: ProfileFull }) {
   const { data: badges, error: badgesError } = await getProfileBadges(profile) 
@@ -38,13 +39,11 @@ export default async function ProfileHeader({ isLeafer, profile }: { isLeafer: b
         <div className="flex gap-2 items-center justify-center flex-wrap">
           {badges.map((badge, i) => <ProfileBadge key={badge.role} role={badge.role} index={i} />)}
         </div> 
-        <div className="rounded-xl bg-green-500/25 p-4 before-bg-fill outline-4 outline outline-background">
-          <Image 
-            className="w-[84px] h-[84px]" 
-            src="/tree1.png" 
-            alt="profile picture" 
-            height={84} width={84} />
-        </div>
+        <ProfilePicture 
+          className="rounded-xl p-4 outline-4 outline outline-background" 
+          src={profile.avatar_url} 
+          size={84} 
+        />
         <div className="m-auto">
           <FollowButton isFollowing={isFollowing} targetId={profile.id} />
         </div> 
