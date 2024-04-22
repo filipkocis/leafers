@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/app/globals.css";
-import { cn } from "@shadcn/lib/utils";
 import { Toaster } from "@shadcn/components/ui/sonner";
+import { ThemeProvider } from "@/app/components/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +18,18 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="en" className="">
-      <body className={cn(inter.className, "")}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
+
       <Toaster richColors />
     </html>
   );

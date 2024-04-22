@@ -1,4 +1,3 @@
-import LogoutButton from "@app/components/LogoutButton";
 import NewPostButton from "@app/components/NewPostButton";
 import LayoutHeader from "@app/components/layout/LayoutHeader";
 import ProfileIdProvider from "@app/contexts/profileIdContext";
@@ -6,6 +5,7 @@ import { getOwnProfileId } from "@app/utils/server/getProfile";
 import { RedirectType, redirect } from "next/navigation";
 import SideNavItems from "@app/components/nav/SideNavItems";
 import { isAdmin } from "@utils/server/roles";
+import { ThemeToggle } from "@/app/components/ThemeToggle";
 
 export default async function Layout({ children, newPostForm }: { children: React.ReactNode, newPostForm: React.ReactNode }) {
   const { data: profileId, error: profileIdError } = await getOwnProfileId()
@@ -25,11 +25,16 @@ export default async function Layout({ children, newPostForm }: { children: Reac
               style={{ top: layoutHeaderHeightRem }} 
               className="sticky w-full items-start flex justify-end overflow-y-auto"
             >
-              <ul className="flex flex-col gap-6 w-min h-full p-2">
+              <ul 
+                style={{ 
+                  height: `calc(100dvh - ${layoutHeaderHeightRem})` 
+                }}
+                className="grid grid-rows-[auto,auto,1fr] gap-6 w-min h-full p-2"
+              >
                 <SideNavItems adminPrivileges={adminPrivileges} />
                 <NewPostButton />
                 {newPostForm}
-                <LogoutButton />
+                <ThemeToggle className="self-end place-self-center" />
               </ul>
             </nav>
           </div>
