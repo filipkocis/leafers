@@ -8,7 +8,7 @@ import FollowButton from "./FollowButton";
 import { getFollowStatus } from "@app/actions/getFollower";
 import ProfileStats from "./ProfileStats";
 
-export default async function ProfileHeader({ profile }: { profile: ProfileFull }) {
+export default async function ProfileHeader({ isLeafer, profile }: { isLeafer: boolean, profile: ProfileFull }) {
   const { data: badges, error: badgesError } = await getProfileBadges(profile) 
   if (badgesError) throw badgesError;
 
@@ -54,7 +54,7 @@ export default async function ProfileHeader({ profile }: { profile: ProfileFull 
         @{profile.username}
       </p>
 
-      <ProfileStats profileId={profile.id} />      
+      <ProfileStats isLeafer={isLeafer} profileId={profile.id} />      
     </div>
   )
 }

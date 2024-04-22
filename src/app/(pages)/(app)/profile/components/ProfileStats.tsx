@@ -1,6 +1,7 @@
+import { cn } from "@shadcn/lib/utils"
 import { getProfileStats } from "../utils/server/getStats"
 
-export default async function ProfileStats({ profileId }: { profileId: string }) {
+export default async function ProfileStats({ isLeafer, profileId }: { isLeafer: boolean, profileId: string }) {
   const { data: stats, error } = await getProfileStats(profileId)
 
   if (error) throw error
@@ -21,7 +22,7 @@ export default async function ProfileStats({ profileId }: { profileId: string })
         label="Posts" 
       />
       <ProfileStat 
-        value={stats.logs_count}
+        value={isLeafer ? stats.logs_count : NaN}
         label="Logs" 
       />
     </div>
@@ -29,9 +30,14 @@ export default async function ProfileStats({ profileId }: { profileId: string })
 }
 
 function ProfileStat({ value, label }: { value: number, label: string }) {
+  const statValue = isNaN(value) ? "X" : value
+
   return (
-    <div className="rounded-xl text-center flex flex-col items-center gap-1">
-      <p className="text-primary text-3xl font-bold leading-none">{value}</p>
+    <div className={cn(
+      "rounded-xl text-center flex flex-col items-center gap-1",
+      isNaN(value) && "opacity-50"
+    )}>
+      <p className="text-primary text-3xl font-bold leading-none">{statValue}</p>
       <p className="leading-none font-semibold text-sm text-muted-foreground">{label}</p>
     </div>
   )
