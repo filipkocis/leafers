@@ -73,8 +73,8 @@ export default function PostInteractionButtons({ id, likes, replies, reposts }: 
           <p>{replies}</p>
         </div>
       </ButtonWrapper>
-      <ButtonWrapper>
-        <div className="hover:text-primary cursor-not-allowed">
+      <ButtonWrapper disabled>
+        <div className="hover:text-primary">
           <div className="p-1 rounded-full group-hover:bg-primary/25 group-hover:shadow-[0_0_0_0.2rem_hsl(var(--primary)_/_25%)]">
             <LucideShare size={16} />
           </div>
@@ -89,7 +89,10 @@ function ButtonWrapper({ children, onClick, disabled }: { children: React.ReactN
   return (
     <NoPropagationButton 
       variant="ghost" 
-      className="cursor-pointer h-auto transition-all p-0 hover:bg-transparent group flex gap-1" 
+      className={cn(
+        "cursor-pointer h-auto transition-all p-0 hover:bg-transparent group flex gap-1",
+        disabled && "cursor-not-allowed"
+      )} 
       asChild 
       onClick={() => {
         if (onClick && !disabled) onClick()
