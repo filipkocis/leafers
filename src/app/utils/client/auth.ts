@@ -1,6 +1,7 @@
 "use client"
 
 import { createSupabaseClient } from "@services/supabase/client";
+import { dataNone, errorMessage } from "@utils/returnObjects";
 
 export async function getSession() {
   const supabase = createSupabaseClient();
@@ -22,4 +23,15 @@ export async function getUser() {
   }
 
   return user;
+}
+
+export async function logout() {
+  try {
+    const supabase = createSupabaseClient();
+    await supabase.auth.signOut();
+
+    return dataNone()
+  } catch (error) {
+    return errorMessage(error)
+  }
 }
