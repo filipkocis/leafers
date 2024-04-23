@@ -125,7 +125,7 @@ export default function NewPostForm({
       <form 
         ref={formRef}
         onSubmit={form.handleSubmit(onSubmit)} 
-        className="flex flex-col gap-3 transition-all overflow-y-hidden p-1"
+        className="flex flex-col justify-between gap-3 transition-all overflow-y-hidden p-1"
       >
         <input type="hidden" name="type" value={type} />
 
@@ -255,7 +255,7 @@ export default function NewPostForm({
           />
         </>)}
 
-        <div className="items-end h-full grid gap-4 grid-cols-[1fr_auto]">
+        <div className="grid gap-4 grid-cols-[1fr_auto]">
           {type === "log" && (
             <FormField
               control={form.control}
