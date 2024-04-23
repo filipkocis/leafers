@@ -15,10 +15,11 @@ import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@shadcn/components/ui/button";
 import { cn } from "@shadcn/lib/utils";
+import { useIsMobile } from "@app/contexts/IsMobileContext";
 
 export default function SideNavItems({ adminPrivileges }: { adminPrivileges: boolean }) {
   return (
-    <div className="grid gap-2 max-lg:items-center">
+    <div className="grid gap-2 max-lg:items-center list-none">
       <SideNavButton href="/home" label="Home" Icon={LucideHome} /> 
       <SideNavButton disabled={true} href="/explore" label="Explore" Icon={LucideCctv} /> 
       <SideNavButton disabled={true} href="/chat" label="Chat" Icon={LucideMessagesSquare} /> 
@@ -36,9 +37,10 @@ function SideNavButton({
 }: { 
   disabled?: boolean, visible?: boolean, href: string, label: string, Icon: LucideIcon 
 }) {
-  if (visible === false) return null;
-
+  const isMobile = useIsMobile();
   const pathname = usePathname();
+
+  if (visible === false) return null;
 
   return (
     <li>
@@ -47,11 +49,17 @@ function SideNavButton({
         className={cn(
           "text-xl lg:w-[250px] h-auto bg-transparent p-0 rounded-full font-normal",
           disabled ? "cursor-not-allowed" : "hover:bg-primary/10", 
-          pathname.startsWith(href) && "font-semibold text-primary"
+          pathname.startsWith(href) && "font-semibold text-primary",
+          isMobile && "w-full text-lg"
         )} asChild>
-        <Link href={disabled ? "#" : href} className="gap-4 p-3 lg:px-4 lg:py-3 flex lg:grid-cols-[auto_1fr] lg:grid">
-          <Icon width={28} height={28} />
-          <span className="hidden lg:inline-block">{label}</span>
+        <Link 
+          href={disabled ? "#" : href} 
+          className={cn(
+            "gap-4 p-3 lg:px-4 lg:py-3 flex lg:grid-cols-[auto_1fr] lg:grid",
+            isMobile && "px-3 py-2 gap-3 grid grid-cols-[auto_1fr]"
+          )}>
+          <Icon width={isMobile ? 24 : 28} height={isMobile ? 24 : 28} />
+          <span className={cn("hidden lg:inline-block", isMobile && "inline-block")}>{label}</span>
         </Link>
       </Button>
     </li>
