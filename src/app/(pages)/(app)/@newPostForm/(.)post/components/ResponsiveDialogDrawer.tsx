@@ -15,11 +15,14 @@ import NewPostForm from "@app/post/components/NewPostForm"
 import { useRouter } from "next/navigation"
 import { useWindowSize } from "@hooks/useWindowSize"
 import Error from "@app/components/Error"
+import { useIsMobile } from "@app/contexts/IsMobileContext"
+import { cn } from "@shadcn/lib/utils"
 
 export default function ResponsiveDrawerDialog({ parent, username, error }: { parent?: string, username?: string, error?: string }) {
   const router = useRouter();
   const windowSize = useWindowSize()
   const isDesktop = (windowSize.width || 0) > 768
+  const isMobile = useIsMobile()
 
   const onOpenChange = (open: boolean) => {
     if (!open) router.back()
@@ -40,7 +43,7 @@ export default function ResponsiveDrawerDialog({ parent, username, error }: { pa
 
   return (
     <Drawer open={true} onOpenChange={onOpenChange}>
-      <DrawerContent>
+      <DrawerContent className={cn(isMobile && "h-screen rounded-none border-none")}>
         {error ? <Error message={error} /> : <>
           <ReplyingTo username={username} />
           <NewPostForm modalCloser={() => onOpenChange(false)} parent={parent} />

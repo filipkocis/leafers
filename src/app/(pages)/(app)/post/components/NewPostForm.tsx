@@ -255,7 +255,7 @@ export default function NewPostForm({
           />
         </>)}
 
-        <div className="grid gap-4 grid-cols-[1fr_auto]">
+        <div className="grow grid items-end gap-4 grid-cols-[1fr_auto]">
           {type === "log" && (
             <FormField
               control={form.control}
