@@ -35,23 +35,28 @@ export default async function ProfileHeader({ isLeafer, profile }: { isLeafer: b
         <Button variant="ghost"><LucideSettings /></Button> 
       </div>
 
-      <div className="grid items-center grid-cols-[1fr,auto,1fr] gap-6">
+      <div className="grid items-center max-sm:grid-rows-[auto,auto] sm:grid-cols-[1fr,auto,1fr] gap-6">
         <div className="flex gap-2 items-center justify-center flex-wrap">
           {badges.map((badge, i) => <ProfileBadge key={badge.role} role={badge.role} index={i} />)}
         </div> 
         <ProfilePicture 
-          className="rounded-xl p-4 outline-4 outline outline-background" 
+          className="place-self-center rounded-xl p-4 outline-4 outline outline-background" 
           src={profile.avatar_url} 
           size={84} 
         />
-        <div className="m-auto">
+        <div className="max-sm:hidden m-auto">
           <FollowButton isFollowing={isFollowing} targetId={profile.id} />
         </div> 
       </div>
 
-      <p className="justify-self-center text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 via-primary via-40% to-lime-500">
-        @{profile.username}
-      </p>
+      <div className="flex gap-4 flex-wrap items-center justify-center">
+        <p className="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 via-primary via-40% to-lime-500">
+          @{profile.username}
+        </p>
+        <div className="sm:hidden">
+          <FollowButton isFollowing={isFollowing} targetId={profile.id} />
+        </div>
+      </div>
 
       <ProfileStats isLeafer={isLeafer} profileId={profile.id} />      
     </div>
