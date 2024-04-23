@@ -20,7 +20,7 @@ export default async function Layout({ children, newPostForm }: { children: Reac
       <ProfileProvider value={profile}>
         <div className="grid grid-rows-[auto_1fr] relative w-full min-h-[100dvh]">
           <LayoutHeader height={layoutHeaderHeightRem}>
-            <ul className="overflow-x-hidden overflow-ellipsis grid grid-rows-[auto,auto,1fr] gap-2 h-full">
+            <ul className="p-1 overflow-x-hidden overflow-ellipsis grid grid-rows-[auto,auto,1fr] gap-2 h-full">
               <SideNavItems adminPrivileges={adminPrivileges} />
               <NewPostButton />
               {newPostForm}
