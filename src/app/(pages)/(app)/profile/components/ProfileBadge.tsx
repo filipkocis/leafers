@@ -6,7 +6,7 @@ export default function ProfileBadge({ role, index = 0 }: { role: string, index?
 
   return (
     <div className={cn(
-      "relative z-0 rounded-lg overflow-hidden cursor-pointer", 
+      "relative z-0 flex items-center justify-center rounded-lg overflow-hidden cursor-pointer", 
       !!badgeStyle.ring && "p-[2px]",
 
       !!badgeStyle.shine && "shadow-[0_0_8px_1px_white]",
@@ -35,7 +35,7 @@ export default function ProfileBadge({ role, index = 0 }: { role: string, index?
             rotate: `${index * 90}deg`,
           }}
           className={cn(
-            "absolute -z-10 inset-0 self-center justify-self-center rounded-full animate-spin",
+            "absolute -z-10 rounded-full animate-spin",
             badgeStyle.ring,
           )} 
         />
