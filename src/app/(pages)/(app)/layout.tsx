@@ -50,7 +50,7 @@ export default async function Layout({ children, newPostForm }: { children: Reac
               </OnlyDesktop>
             </div>
 
-              <main className="grid md:w-[42rem] border-l border-r">
+              <main className="grid md:w-[42rem] sm:border-l sm:border-r">
                 {children}
               </main>
           </div>
