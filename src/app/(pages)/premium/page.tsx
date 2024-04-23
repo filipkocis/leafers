@@ -5,6 +5,7 @@ import { LucideX } from "lucide-react"
 import Link from "next/link"
 import TIERS from "./utils/tiers"
 import SubscriptionCard from "./components/SubscriptionCard"
+import OnlyDesktop from "@app/components/OnlyDesktop"
 
 export default async function PremiumPage() {
   const session = await getSession()
@@ -15,7 +16,9 @@ export default async function PremiumPage() {
 
   return (
     <div className="flex flex-col relative w-full min-h-[100dvh]">
-      <LayoutHeader height={headerHeightRem} />
+      <OnlyDesktop>
+        <LayoutHeader height={headerHeightRem} />
+      </OnlyDesktop>
 
       <div className="p-2 flex items-center justify-start">
         <Link href="/home" className="flex gap-1 items-center">
