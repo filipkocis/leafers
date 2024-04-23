@@ -1,3 +1,5 @@
+"use client"
+
 import {
   LogOut,
   LucideIcon,
@@ -9,7 +11,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -17,25 +18,24 @@ import {
 import ProfilePicture from "@app/components/ProfilePicture"
 import Link from "next/link"
 import DropdownLogout from "./DropdownLogout"
+import { useProfile } from "@app/contexts/profileContext"
 
-export function LayoutHeaderProfileDropdown({ 
-  avatarUrl, displayName, username 
-}: { 
-  avatarUrl: string | null, displayName: string | null, username: string 
-}) {
+export function LayoutHeaderProfileDropdown() {
+  const profile = useProfile()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="flex items-center gap-4 cursor-pointer">
-          <p className="text-lg font-semibold">
-            {displayName || '@' + username}
-          </p>
-          <ProfilePicture src={avatarUrl} alt="Profile picture" size={42} /> 
+        <div className="cursor-pointer">
+          <ProfilePicture src={profile?.avatar_url} alt="Profile picture" size={42} /> 
         </div>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel className="flex items-center gap-1.5">
+          {`@${profile?.username}`}
+          <span className="text-sm font-normal">{profile?.display_name}</span>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
