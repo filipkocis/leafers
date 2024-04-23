@@ -3,17 +3,18 @@
 import { LucideHeart, LucideReplyAll, LucideShare } from "lucide-react";
 import { NoPropagationButton } from "@components/NoPropagationButton";
 import { checkIfLiked, handlePostLike } from "../utils/likePost";
-import { useContext, useEffect, useState } from "react";
-import { cn } from "@/app/lib/shadcn/lib/utils";
-import { ProfileIdContext } from "@app/contexts/profileIdContext";
+import { useEffect, useState } from "react";
+import { cn } from "@shadcn/lib/utils";
 import { useRouter } from "next/navigation";
+import { useProfile } from "@app/contexts/profileContext";
 
 export default function PostInteractionButtons({ id, likes, replies, reposts }: { id: string, likes: number, replies: number, reposts: number }) {
   const [isLiked, setIsLiked] = useState<undefined | boolean>(undefined)
   const [isLoadingLike, setLoadingLike] = useState(false)
   const [likeCount, setLikeCount] = useState(likes)
-  const profileId = useContext(ProfileIdContext)
   const router = useRouter()
+  const profile = useProfile()
+  const profileId = profile ? profile.id : null;
 
   useEffect(() => {
     async function checkLiked() {
