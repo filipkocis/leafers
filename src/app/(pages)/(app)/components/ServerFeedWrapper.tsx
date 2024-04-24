@@ -24,7 +24,7 @@ export default async function ServerFeedWrapper({
 
   if (!posts.length) {
     return (
-      <div className="h-full flex items-center justify-center text-lg text-gray-500">
+      <div className="h-full p-6 flex items-center justify-center text-lg text-gray-500">
         No posts found :(
       </div>
     )
