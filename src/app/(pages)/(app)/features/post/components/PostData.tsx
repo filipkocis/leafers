@@ -33,7 +33,7 @@ export default function PostData({ id, type }: { id: string, type: PostTypeEnum 
 const ellipsisText = "[&>*]:overflow-hidden [&>*]:text-ellipsis whitespace-nowrap" 
 
 function LogPostData({ id }: { id: string }) {
-  const memoizedGetLogPostData = useCallback(getLogPostData.bind(null, id), [id])
+  const memoizedGetLogPostData = useCallback(() => getLogPostData(id), [id])
   const { data: log, error, loading } = useAwaitData(memoizedGetLogPostData)
 
   if (loading) return <CenteredLoader />;
