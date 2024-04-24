@@ -14,5 +14,6 @@ const LinkPost = React.memo(({ post, className }: { post: PostWithProfileAndCoun
     </div>
   )
 })
+LinkPost.displayName = "LinkPost"
 
 export default LinkPost
