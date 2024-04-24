@@ -232,12 +232,110 @@ export type Database = {
           },
         ]
       }
+      roles: {
+        Row: {
+          created_at: string
+          profile_id: string
+          role: string
+        }
+        Insert: {
+          created_at?: string
+          profile_id: string
+          role: string
+        }
+        Update: {
+          created_at?: string
+          profile_id?: string
+          role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_roles_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subscriptions: {
+        Row: {
+          created_at: string
+          granted: boolean
+          name: string
+          rejected: boolean | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          granted?: boolean
+          name: string
+          rejected?: boolean | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          granted?: boolean
+          name?: string
+          rejected?: boolean | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      check_admin_role:
+        | {
+            Args: Record<PropertyKey, never>
+            Returns: boolean
+          }
+        | {
+            Args: {
+              user_id: string
+            }
+            Returns: boolean
+          }
+      check_role: {
+        Args: {
+          role: string
+        }
+        Returns: boolean
+      }
+      get_followed_posts: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          content: string | null
+          created_at: string
+          id: string
+          parent_id: string | null
+          profile_id: string
+          type: Database["public"]["Enums"]["post_type"]
+        }[]
+      }
+      get_profile_count_stats: {
+        Args: {
+          pid: string
+        }
+        Returns: {
+          posts_count: number
+          replies_count: number
+          reposts_count: number
+          logs_count: number
+          followers_count: number
+          following_count: number
+        }[]
+      }
     }
     Enums: {
       post_type: "text" | "log" | "repost" | "media" | "link" | "poll" | "event"
