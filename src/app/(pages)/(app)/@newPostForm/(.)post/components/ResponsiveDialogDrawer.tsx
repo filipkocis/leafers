@@ -43,7 +43,7 @@ export default function ResponsiveDrawerDialog({ parent, username, error }: { pa
 
   return (
     <Drawer open={true} onOpenChange={onOpenChange}>
-      <DrawerContent className={cn(isMobile && "h-screen rounded-none border-none")}>
+      <DrawerContent className={cn(isMobile && "h-[100dvh] rounded-none border-none")}>
         {error ? <Error message={error} /> : <>
           <ReplyingTo username={username} />
           <NewPostForm modalCloser={() => onOpenChange(false)} parent={parent} />
