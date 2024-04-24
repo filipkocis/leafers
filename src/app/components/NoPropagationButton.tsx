@@ -3,7 +3,7 @@
 import { Button, ButtonProps } from "@shadcn/components/ui/button"
 import { forwardRef } from "react"
 
-export const NoPropagationButton = forwardRef<HTMLButtonElement, ButtonProps>(
+const Component = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ onClick, ...props }, ref) => {
     return (
       <Button
@@ -17,3 +17,6 @@ export const NoPropagationButton = forwardRef<HTMLButtonElement, ButtonProps>(
     )
   }
 )
+Component.displayName = "NoPropagationButton";
+
+export const NoPropagationButton = Component;

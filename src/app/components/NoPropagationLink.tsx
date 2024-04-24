@@ -7,7 +7,7 @@ type LinkType = LinkProps & {
   children?: React.ReactNode
 } & React.AnchorHTMLAttributes<HTMLAnchorElement>
 
-export const NoPropagationLink = forwardRef<HTMLAnchorElement, LinkType>(
+const Component = forwardRef<HTMLAnchorElement, LinkType>(
   ({ children, onClick, ...props }, ref) => {
     return (
       <Link
@@ -23,3 +23,6 @@ export const NoPropagationLink = forwardRef<HTMLAnchorElement, LinkType>(
     )
   }
 )
+Component.displayName = "NoPropagationLink";
+
+export const NoPropagationLink = Component;
