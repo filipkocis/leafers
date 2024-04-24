@@ -17,11 +17,18 @@ export async function getPaginatedPosts({
       .limit(limit)
       .range(offset, limit + offset - 1);
 
-    if (parent_id) query = query.eq('parent_id', parent_id);
-    if (profile_id) { query = query.eq("profile_id", profile_id) }
-    if (type) {
-      if (type === "reply" && !parent_id) query = query.not("parent_id", "is", null)
-      else query = query.eq("type", type)
+    // TODO: Add query params to the rpc, it doesnt work here i guess;
+    if (!following) {
+      // @ts-ignore
+      if (parent_id) query = query.eq('parent_id', parent_id);
+      // @ts-ignore
+      if (profile_id) { query = query.eq("profile_id", profile_id) }
+      if (type) {
+        // @ts-ignore
+        if (type === "reply" && !parent_id) query = query.not("parent_id", "is", null)
+        // @ts-ignore
+        else query = query.eq("type", type)
+      }
     }
 
     const { data, error } = await query;
