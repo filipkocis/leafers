@@ -1,6 +1,6 @@
 import { getPostById } from "../utils/server/getPostById"
 import Error from "@app/components/Error"
-import NewPostForm from "../components/NewPostForm"
+import NewPostForm from "@app/features/postform/NewPostForm"
 import Post from "@app/features/post/Post"
 import ServerFeedWrapper from "@app/components/ServerFeedWrapper"
 
@@ -16,7 +16,7 @@ export default async function PostPage({ params: { id } }: { params: { id: strin
       </div>
 
       <div className="border-b p-3">
-        <NewPostForm tabs="bottom" parent={post.id} />
+        <NewPostForm parent={post.id} />
       </div>
 
       <ServerFeedWrapper parentId={id} />

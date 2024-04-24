@@ -11,7 +11,7 @@ import {
   DrawerContent,
   DrawerFooter,
 } from "@shadcn/components/ui/drawer"
-import NewPostForm from "@app/post/components/NewPostForm"
+import NewPostForm from "@app/features/postform/NewPostForm"
 import { useRouter } from "next/navigation"
 import { useWindowSize } from "@hooks/useWindowSize"
 import Error from "@app/components/Error"
