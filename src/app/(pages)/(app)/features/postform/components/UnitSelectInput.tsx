@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { FormControl, FormField, FormItem } from "@shadcn/components/ui/form";
 import { zodUnitEnum } from "@app/utils/types";
 
-export default function UnitSelectInput({ className }: { className?: string }) {
+export default function UnitSelectInput({ disabled, className }: { disabled?: boolean, className?: string }) {
   const form = useFormContext()
 
   function handleUnitChange(value: string, onChange: (...event: any[]) => void) {
@@ -15,12 +15,13 @@ export default function UnitSelectInput({ className }: { className?: string }) {
   
   return (
     <FormField
+      disabled={disabled}
       control={form.control}
       defaultValue="gram"
       name="unit"
       render={({ field }) => (
         <FormItem className="grid">
-          <Select onValueChange={(value) => handleUnitChange(value, field.onChange)} defaultValue={field.value}>
+          <Select disabled={disabled} onValueChange={(value) => handleUnitChange(value, field.onChange)} defaultValue={disabled ? 'null' : field.value}>
             <SelectTrigger className={className}>
               <FormControl> 
                 <SelectValue placeholder="Unit" />

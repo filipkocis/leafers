@@ -8,7 +8,7 @@ import { z } from "zod";
 import DateTimeInput from "./DateTimeInput";
 import UnitSelectInput from "./UnitSelectInput";
 
-export function FormLog({ form }: { form: UseFormReturn<z.infer<typeof combinedSchema>>}) {
+export function FormLog({ form, disabled }: { form: UseFormReturn<z.infer<typeof combinedSchema>>, disabled?: boolean }) {
   
   function handleNumberInput(value: string, onChange: (...event: any[]) => void) {
     if (value === "") onChange(undefined);
@@ -18,6 +18,7 @@ export function FormLog({ form }: { form: UseFormReturn<z.infer<typeof combinedS
   return (
     <div className="grid gap-2">
       <FormField
+        disabled={disabled}
         control={form.control}
         name="name"
         render={({ field }) => (
@@ -38,6 +39,7 @@ export function FormLog({ form }: { form: UseFormReturn<z.infer<typeof combinedS
 
       <div className="grid gap-x-2 grid-cols-[1fr_auto]">
         <FormField
+          disabled={disabled}
           control={form.control}
           name="amount"
           render={({ field }) => (
@@ -58,11 +60,12 @@ export function FormLog({ form }: { form: UseFormReturn<z.infer<typeof combinedS
           )}
         />
         
-        <UnitSelectInput />
+        <UnitSelectInput disabled={disabled} />
       </div>
 
       <div className="grid gap-2 grid-cols-2">
         <FormField
+          disabled={disabled}
           control={form.control}
           name="variant"
           render={({ field }) => (
@@ -81,6 +84,7 @@ export function FormLog({ form }: { form: UseFormReturn<z.infer<typeof combinedS
           )}
         />
         <FormField
+          disabled={disabled}
           control={form.control}
           name="appearance"
           render={({ field }) => (
@@ -100,7 +104,7 @@ export function FormLog({ form }: { form: UseFormReturn<z.infer<typeof combinedS
         />
       </div>
 
-      <DateTimeInput defaultValue={new Date()} />      
+      <DateTimeInput disabled={disabled} defaultValue={new Date()} />      
     </div>
   )
 }

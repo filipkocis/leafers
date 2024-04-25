@@ -14,7 +14,7 @@ import {
 import { FormControl, FormField, FormItem, FormMessage } from "@shadcn/components/ui/form"
 import { useFormContext } from "react-hook-form"
 
-export default function DateTimeInput({ defaultValue, className }: { defaultValue: Date, className?: string }) {
+export default function DateTimeInput({ disabled, defaultValue, className }: { disabled?: boolean, defaultValue: Date, className?: string }) {
   const form = useFormContext()
 
   const handleSelect = (value: Date | undefined, onChange: (...event: any[]) => void) => {
@@ -23,13 +23,14 @@ export default function DateTimeInput({ defaultValue, className }: { defaultValu
 
   return (
   <FormField
+    disabled={disabled}
     control={form.control}
     defaultValue={defaultValue}
     name="timestamp"
     render={({ field }) => (
-      <FormItem className="grid">
+      <FormItem className={cn("grid", disabled && "cursor-not-allowed")}>
         <Popover>
-          <PopoverTrigger asChild>
+          <PopoverTrigger disabled={disabled} asChild>
             <FormControl>
               <Button
                 variant={"outline"}
