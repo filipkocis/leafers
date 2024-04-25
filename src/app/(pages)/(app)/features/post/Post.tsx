@@ -10,6 +10,7 @@ import PostUsername from "./components/PostUsername"
 import { PostWithProfileAndCounts } from "@app/utils/types"
 import Link from "next/link"
 import { NoPropagationLink } from "@components/NoPropagationLink"
+import PostOptionsButton from "./components/PostOptionsButton"
 
 export default function Post({ post, className}: { post: PostWithProfileAndCounts, className?: string }) {
   const username = post.profiles?.username || "deleted" 
@@ -28,20 +29,24 @@ export default function Post({ post, className}: { post: PostWithProfileAndCount
       
       <div className="grid gap-1">
         <div className="grid">
-          <div className="leading-5 text-[0.94rem] flex flex-wrap items-center gap-1 overflow-hidden">
-            <PostUsername 
-              username={username} 
-              displayName={displayName} 
-            />
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <p className="text-muted-foreground">•</p>
-              <Link 
-                href={`/post/${post.id}`} 
-                className="hover:underline text-muted-foreground whitespace-nowrap"
-              >
-                <span suppressHydrationWarning>{formatPostDate(post.created_at)}</span>
-              </Link>
+          <div className="grid grid-cols-[1fr,auto]">
+            <div className="leading-5 text-[0.94rem] flex flex-wrap items-center gap-1 overflow-hidden">
+              <PostUsername 
+                username={username} 
+                displayName={displayName} 
+              />
+              <div className="flex items-center gap-1 text-muted-foreground">
+                <p className="text-muted-foreground">•</p>
+                <Link 
+                  href={`/post/${post.id}`} 
+                  className="hover:underline text-muted-foreground whitespace-nowrap"
+                >
+                  <span suppressHydrationWarning>{formatPostDate(post.created_at)}</span>
+                </Link>
+              </div>
             </div>
+
+            <PostOptionsButton post={post} />
           </div>
 
           <p className="" style={{ wordBreak: "break-word" }}>{post.content}</p>
