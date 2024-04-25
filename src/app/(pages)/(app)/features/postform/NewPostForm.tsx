@@ -13,7 +13,7 @@ import {
 } from "@shadcn/components/ui/form"
 import { createPost } from "./actions/createPost"
 import { combinedSchema } from "./utils/newPostSchema"
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react"
+import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Textarea } from "@shadcn/components/ui/textarea"
 import { toast } from "sonner"
 import { capitalize } from "@utils/string"
@@ -24,6 +24,7 @@ import { useRouter } from "next/navigation"
 import PostTypeToggleGroup from "./components/PostTypeToggleGroup"
 import { FormLog } from "./components/FormLog"
 import { cn } from "@shadcn/lib/utils"
+import { useBadges } from "@app/contexts/badgesContext"
 
 function resizeElementHeight(
   after: "old" | "new",
@@ -56,6 +57,14 @@ export default function NewPostForm({
   const [type, setType] = useState<PostTypeEnum>("text")
   const formRef = useRef<HTMLFormElement>(null)
   const router = useRouter()
+  const badges = useBadges()
+
+  const disabled = useMemo(() => {
+    if (type === "log") return !badges?.includes('leafer');
+    // TODO: remove this after implementing more types
+    if (type !== "text") return true;
+    return false;
+  }, [badges, type])
 
   const resizeForm = useCallback(() => {
     resizeElementHeight("old", formRef.current, (_, newHeight) =>  { 
@@ -161,6 +170,7 @@ export default function NewPostForm({
           <ProfilePicture className="self-start" src={undefined} alt="Profile picture" size={40} />
 
           <FormField
+            disabled={disabled}
             control={form.control}
             name="content"
             render={({ field, fieldState }) => (
@@ -182,13 +192,14 @@ export default function NewPostForm({
         </div>
         
         {type === "log" && (
-          <FormLog form={form} />
+          <FormLog disabled={disabled} form={form} />
         )} 
         
         <div className="flex justify-between gap-4">
           <PostTypeToggleGroup defaultValue="text" type={type} setType={setType} />
 
           <Button 
+            disabled={disabled}
             className="px-3 py-2 h-auto sm:text-lg rounded-full bg-gradient-to-r from-green-500 from-20% to-primary" 
             type="submit"
           >
