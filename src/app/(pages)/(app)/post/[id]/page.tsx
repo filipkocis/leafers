@@ -7,7 +7,7 @@ import ServerFeedWrapper from "@app/components/ServerFeedWrapper"
 export default async function PostPage({ params: { id } }: { params: { id: string }}) {
   const { data: post, error } = await getPostById(id)
 
-  if (error) return <Error message={error.message} />
+  if (error) return <Error message={"No post found :("} />
 
   return (
     <div className="flex flex-col">
