@@ -28,7 +28,7 @@ export function ProfileUsernameAndCheckmarks({ profile, timestamp, timestampHref
         </NoPropagationLink>
 
         {!!timestamp &&
-         <div className="text-[0.94rem] flex items-center gap-1 text-muted-foreground">
+        <div className="text-[0.94rem] flex items-center gap-1 text-muted-foreground">
           <p>•</p>
           <NoPropagationLink href={timestampHref} className="hover:underline">
             <span suppressHydrationWarning>{formatPostDate(timestamp)}</span>
