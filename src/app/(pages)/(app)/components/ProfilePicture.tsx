@@ -5,7 +5,7 @@ export default function ProfilePicture({ src, alt, size, className }: { src: str
   return (
     <div 
       className={cn(
-        "bg-green-500/25 before-bg-fill rounded-full self-center overflow-hidden border flex items-center justify-center",
+        "bg-green-500/25 w-max before-bg-fill rounded-full self-center overflow-hidden border flex items-center justify-center",
         className
       )}
     >
