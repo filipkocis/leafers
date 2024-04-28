@@ -1,9 +1,9 @@
 "use client"
 
-import { Button } from "@shadcn/components/ui/button";
 import { followUser, unfollowUser } from "@app/actions/getFollower";
 import { LucideCheck, LucidePlus } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { NoPropagationButton } from "@components/NoPropagationButton";
 
 export default function FollowButton({ targetId, isFollowing }: { targetId: string, isFollowing: boolean }) {
   const router = useRouter()
@@ -16,7 +16,7 @@ export default function FollowButton({ targetId, isFollowing }: { targetId: stri
   }
 
   return (
-    <Button 
+    <NoPropagationButton 
       onClick={handleClick} 
       variant={isFollowing ? "secondary" : "default"} 
       className="px-3 py-2 h-auto transition-all"
@@ -28,6 +28,6 @@ export default function FollowButton({ targetId, isFollowing }: { targetId: stri
         }
         {isFollowing ? "Following" : "Follow"}
       </div>
-    </Button>
+    </NoPropagationButton>
   )
 }
