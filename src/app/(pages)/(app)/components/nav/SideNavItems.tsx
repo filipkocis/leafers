@@ -21,7 +21,7 @@ export default function SideNavItems({ adminPrivileges }: { adminPrivileges: boo
   return (
     <div className="grid gap-2 max-lg:items-center list-none">
       <SideNavButton href="/home" label="Home" Icon={LucideHome} /> 
-      <SideNavButton disabled={true} href="/explore" label="Explore" Icon={LucideCctv} /> 
+      <SideNavButton href="/explore" label="Explore" Icon={LucideCctv} /> 
       <SideNavButton disabled={true} href="/chat" label="Chat" Icon={LucideMessagesSquare} /> 
       <SideNavButton disabled={true} href="/leaderboard" label="Leaderboard" Icon={LucideMedal} /> 
       <SideNavButton href="/profile" label="Profile" Icon={LucideLeaf} /> 

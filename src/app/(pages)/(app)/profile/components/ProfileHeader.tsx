@@ -4,7 +4,7 @@ import Image from "next/image";
 import Badge from "@app/features/badges/Badge";
 import { getProfileBadgesOrdered } from "@app/features/badges/utils/server/getBadges";
 import { ProfileFull } from "@app/utils/types";
-import FollowButton from "./FollowButton";
+import FollowButton from "@app/features/profile/components/FollowButton";
 import { getFollowStatus } from "@app/actions/getFollower";
 import ProfileStats from "./ProfileStats";
 import ProfilePicture from "@app/components/ProfilePicture";
