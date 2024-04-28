@@ -1,6 +1,6 @@
 import Error from "@app/components/Error"
-import ProfileCard from "@app/features/profile/ProfileCard"
 import { getAllProfiles } from "./utils/server/getAllProfiles"
+import ProfileCardLink from "../features/profile/ProfileCardLink"
 
 export default async function ExplorePage() {
   const { data: profiles, error } = await getAllProfiles() 
@@ -8,7 +8,7 @@ export default async function ExplorePage() {
 
   return (
     <div className="flex flex-col">
-      {profiles.map((profile) => <ProfileCard key={profile.id} profile={profile} /> )}
+      {profiles.map((profile) => <ProfileCardLink key={profile.id} profile={profile} /> )}
     </div>
   )
 }

@@ -11,7 +11,6 @@ export function CheckmarkBasic({
   const gradientId = `checkmark-gradient-${variant}`
 
   return (
-  <HoverCardCheckmark role={variant}>
     <svg 
       className={cn("fill-current cursor-pointer", className)}
       width={`${size}px`}
@@ -33,7 +32,6 @@ export function CheckmarkBasic({
           fill={`url(#${gradientId})`} />
       </g>
     </svg>
-  </HoverCardCheckmark>
   )
 }
 

@@ -23,7 +23,9 @@ export default async function ProfileCard({ profile, className }: { profile: Pro
       </div>
 
       <div className="flex flex-col gap-2 overflow-hidden">
-        <p className="text-sm text-muted-foreground">Member since {formatPostDate(profile.created_at)}</p>
+        <p className="text-sm text-muted-foreground">
+          Member since {formatPostDate(profile.created_at)}
+        </p>
       </div>
     </PostContainer>
   )
