@@ -8,7 +8,7 @@ export default async function ExplorePage() {
 
   return (
     <div className="flex flex-col">
-      {profiles.map((profile) => <ProfileCard profile={profile} /> )}
+      {profiles.map((profile) => <ProfileCard key={profile.id} profile={profile} /> )}
     </div>
   )
 }
