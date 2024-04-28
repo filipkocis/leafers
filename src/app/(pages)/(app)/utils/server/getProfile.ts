@@ -109,22 +109,3 @@ export async function getUsernameByPostId(post_id: string) {
     return errorMessage(error, "Could not get username");
   }
 }
-
-export async function getProfileBadges(profile_id: string) {
-  try {
-    const supabase = await createClient();
-
-    const { data, error } = await supabase
-      .from("roles")
-      .select("role")
-      .eq("profile_id", profile_id);
-
-    if (error) throw error;
-
-    const badges = data.map(badge => badge.role);
-
-    return dataNonNull(badges)
-  } catch (error) {
-    return errorMessage(error);
-  }
-}
