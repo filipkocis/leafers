@@ -8,6 +8,7 @@ import FollowButton from "@app/features/profile/components/FollowButton";
 import { getFollowStatus } from "@app/actions/getFollower";
 import ProfileStats from "./ProfileStats";
 import ProfilePicture from "@app/components/ProfilePicture";
+import Link from "next/link";
 
 export default async function ProfileHeader({ isLeafer, profile }: { isLeafer: boolean, profile: ProfileFull }) {
   const { data: badges, error: badgesError } = await getProfileBadgesOrdered(profile) 
@@ -31,8 +32,10 @@ export default async function ProfileHeader({ isLeafer, profile }: { isLeafer: b
       </div>
 
       <div className="flex justify-between w-full">
-        <Button variant="ghost"><LucideArrowLeft /></Button>
-        <Button variant="ghost"><LucideSettings /></Button> 
+        <Link href="/explore"> 
+          <Button variant="ghost"><LucideArrowLeft /></Button>
+        </Link>
+        <Button className="cursor-not-allowed" variant="ghost"><LucideSettings /></Button> 
       </div>
 
       <div className="grid items-center max-sm:grid-rows-[auto,auto] sm:grid-cols-[1fr,auto,1fr] gap-6">
