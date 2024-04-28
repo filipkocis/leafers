@@ -1,8 +1,8 @@
 import { Button } from "@shadcn/components/ui/button";
 import { LucideArrowLeft, LucideSettings } from "lucide-react";
 import Image from "next/image";
-import ProfileBadge from "./ProfileBadge";
-import { getProfileBadges } from "../utils/server/getBadges";
+import Badge from "@app/features/badges/Badge";
+import { getProfileBadgesOrdered } from "@app/features/badges/utils/server/getBadges";
 import { ProfileFull } from "@app/utils/types";
 import FollowButton from "./FollowButton";
 import { getFollowStatus } from "@app/actions/getFollower";
@@ -10,7 +10,7 @@ import ProfileStats from "./ProfileStats";
 import ProfilePicture from "@app/components/ProfilePicture";
 
 export default async function ProfileHeader({ isLeafer, profile }: { isLeafer: boolean, profile: ProfileFull }) {
-  const { data: badges, error: badgesError } = await getProfileBadges(profile) 
+  const { data: badges, error: badgesError } = await getProfileBadgesOrdered(profile) 
   if (badgesError) throw badgesError;
 
   const { data: isFollowing, error: followingError } = await getFollowStatus(profile.id)
@@ -37,7 +37,7 @@ export default async function ProfileHeader({ isLeafer, profile }: { isLeafer: b
 
       <div className="grid items-center max-sm:grid-rows-[auto,auto] sm:grid-cols-[1fr,auto,1fr] gap-6">
         <div className="flex gap-2 items-center justify-center flex-wrap">
-          {badges.map((badge, i) => <ProfileBadge key={badge.role} role={badge.role} index={i} />)}
+          {badges.map((badge, i) => <Badge key={badge.role} role={badge.role} index={i} />)}
         </div> 
         <ProfilePicture 
           className="place-self-center rounded-xl p-4 outline-4 outline outline-background" 

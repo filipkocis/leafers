@@ -2,10 +2,10 @@ import { Card } from "@shadcn/components/ui/card"
 import { LucideCheck } from "lucide-react"
 import { SubscriptionType } from "../utils/types"
 import { cn } from "@shadcn/lib/utils"
-import ProfileBadge from "@app/profile/components/ProfileBadge"
 import SubscriptionButton from "./SubscriptionButton"
 import { getSubscriptionState } from "../utils/server/subscription"
 import { Button } from "@shadcn/components/ui/button"
+import ProfileBadgeBasic from "@app/features/badges/components/ProfileBadge"
 
 export default async function SubscriptionCard(subscription: SubscriptionType) {
   const { data: subscriptionState } = await getSubscriptionState(subscription.name)
@@ -20,7 +20,7 @@ export default async function SubscriptionCard(subscription: SubscriptionType) {
         <div className="flex items-center gap-3">
           <h2 className="text-xl">{subscription.name}</h2>
           <div className="relative flex items-center justify-center">
-            <ProfileBadge role={subscription.badge} />
+            <ProfileBadgeBasic role={subscription.badge} />
           </div>
         </div>
         <p className="flex gap-1 items-end">

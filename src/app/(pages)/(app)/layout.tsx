@@ -1,19 +1,20 @@
 import NewPostButton from "@app/components/NewPostButton";
 import LayoutHeader from "@app/components/layout/LayoutHeader";
 import ProfileProvider from "@app/contexts/profileContext";
-import { getOwnProfileData, getProfileBadges } from "@app/utils/server/getProfile";
+import { getOwnProfileData } from "@app/utils/server/getProfile";
 import { RedirectType, redirect } from "next/navigation";
 import SideNavItems from "@app/components/nav/SideNavItems";
 import { isAdmin } from "@utils/server/roles";
 import { ThemeToggle } from "@components/ThemeToggle";
 import OnlyDesktop from "@app/components/OnlyDesktop";
 import BadgesProvider from "./contexts/badgesContext";
+import { getProfileBadgesArray } from "@app/features/badges/utils/server/getBadges";
 
 export default async function Layout({ children, newPostForm }: { children: React.ReactNode, newPostForm: React.ReactNode }) {
   const { data: profile, error: profileError } = await getOwnProfileData()
   if (profileError) redirect('/', RedirectType.replace)
 
-  const { data: badges, error: badgesError } = await getProfileBadges(profile.id)
+  const { data: badges, error: badgesError } = await getProfileBadgesArray(profile.id)
   if (badgesError) redirect('/', RedirectType.replace)
 
   const adminPrivileges = await isAdmin()
@@ -55,9 +56,9 @@ export default async function Layout({ children, newPostForm }: { children: Reac
                 </OnlyDesktop>
               </div>
 
-                <main className="grid md:w-[42rem] sm:border-l sm:border-r">
-                  {children}
-                </main>
+              <main className="grid md:w-[42rem] sm:border-l sm:border-r">
+                {children}
+              </main>
             </div>
           </div>
 
