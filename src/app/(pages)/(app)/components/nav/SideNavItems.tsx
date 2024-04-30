@@ -25,7 +25,7 @@ export default function SideNavItems({ adminPrivileges }: { adminPrivileges: boo
       <SideNavButton disabled={true} href="/chat" label="Chat" Icon={LucideMessagesSquare} /> 
       <SideNavButton disabled={true} href="/leaderboard" label="Leaderboard" Icon={LucideMedal} /> 
       <SideNavButton href="/profile" label="Profile" Icon={LucideLeaf} /> 
-      <SideNavButton disabled={true} href="/ai" label="AI" Icon={LucideCpu} /> 
+      <SideNavButton href="/ai" label="AI" Icon={LucideCpu} /> 
       <SideNavButton href="/premium" label="Premium" Icon={LucideFlame} /> 
       <SideNavButton visible={adminPrivileges} href="/admin" label="Admin" Icon={LucideKey} /> 
     </div>

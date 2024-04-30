@@ -2,6 +2,10 @@ export function errorMessage(error: any, defaultMessage: string = "Unknown error
   return { error: { message: error?.message || defaultMessage }, data: null }
 }
 
+export function errorObject<T extends object>(error: T) {
+  return { error, data: null }
+}
+
 export function errorNone() {
   return { error: null, data: null }
 }
