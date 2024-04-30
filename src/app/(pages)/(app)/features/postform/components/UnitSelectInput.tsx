@@ -3,15 +3,21 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shadcn/components/ui/select"
 import { useFormContext } from "react-hook-form";
 import { FormControl, FormField, FormItem } from "@shadcn/components/ui/form";
-import { zodUnitEnum } from "@app/utils/types";
+import { useEffect, useState } from "react";
 
 export default function UnitSelectInput({ disabled, className }: { disabled?: boolean, className?: string }) {
   const form = useFormContext()
+  const [isLeaf, setIsLeaf] = useState(disabled ? false : true)
 
-  function handleUnitChange(value: string, onChange: (...event: any[]) => void) {
-    if ((zodUnitEnum as any as string[]).includes(value)) onChange(value)
-    else onChange(undefined)
-  }
+  useEffect(() => {
+    const unitValue = form.getValues('unit') as string
+    const leafValue = form.getValues('leaf')
+
+    if (leafValue === isLeaf) return;
+    if (leafValue && !unitValue.endsWith('gram')) form.setValue('unit', 'gram') 
+
+    setIsLeaf(leafValue)
+  }, [form, isLeaf, setIsLeaf])
   
   return (
     <FormField
@@ -21,7 +27,12 @@ export default function UnitSelectInput({ disabled, className }: { disabled?: bo
       name="unit"
       render={({ field }) => (
         <FormItem className="grid">
-          <Select disabled={disabled} onValueChange={(value) => handleUnitChange(value, field.onChange)} defaultValue={disabled ? 'null' : field.value}>
+          <Select 
+            value={field.value} 
+            disabled={disabled} 
+            onValueChange={field.onChange} 
+            defaultValue={disabled ? 'none' : field.value}
+          >
             <SelectTrigger className={className}>
               <FormControl> 
                 <SelectValue placeholder="Unit" />
@@ -31,8 +42,9 @@ export default function UnitSelectInput({ disabled, className }: { disabled?: bo
             <SelectContent>
               <SelectItem value="gram">g</SelectItem>
               <SelectItem value="miligram">mg</SelectItem>
-              <SelectItem value="hour">h</SelectItem>
-              <SelectItem value="null">None</SelectItem>
+              <SelectItem disabled={isLeaf} value="second">s</SelectItem>
+              <SelectItem disabled={isLeaf} value="hour">h</SelectItem>
+              <SelectItem disabled={isLeaf} value="none">None</SelectItem>
             </SelectContent>
           </Select>
         </FormItem>

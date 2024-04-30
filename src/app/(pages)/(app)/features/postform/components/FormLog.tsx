@@ -1,20 +1,15 @@
 "use client"
 
-import { FormControl, FormField, FormItem, FormMessage } from "@shadcn/components/ui/form";
+import { FormControl, FormField, FormItem, FormLabel } from "@shadcn/components/ui/form";
 import { Input } from "@shadcn/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 import { combinedSchema } from "../utils/newPostSchema";
 import { z } from "zod";
 import DateTimeInput from "./DateTimeInput";
 import UnitSelectInput from "./UnitSelectInput";
+import { Checkbox } from "@shadcn/components/ui/checkbox";
 
 export function FormLog({ form, disabled }: { form: UseFormReturn<z.infer<typeof combinedSchema>>, disabled?: boolean }) {
-  
-  function handleNumberInput(value: string, onChange: (...event: any[]) => void) {
-    if (value === "") onChange(undefined);
-    else onChange(value)
-  }
-
   return (
     <div className="grid gap-2">
       <FormField
@@ -32,7 +27,6 @@ export function FormLog({ form, disabled }: { form: UseFormReturn<z.infer<typeof
                 placeholder="Activity or Substance name" 
                 {...field} />
             </FormControl>
-            <FormMessage />
           </FormItem>
         )}
       />
@@ -53,7 +47,6 @@ export function FormLog({ form, disabled }: { form: UseFormReturn<z.infer<typeof
                   className="placeholder:text-sm px-3 py-2 text-[1rem]" 
                   placeholder="Amount" 
                   {...field}
-                  onChange={(e) => handleNumberInput(e.currentTarget.value, field.onChange)}
                   />
               </FormControl>
             </FormItem>
@@ -79,7 +72,6 @@ export function FormLog({ form, disabled }: { form: UseFormReturn<z.infer<typeof
                   placeholder="Variant" 
                   {...field} />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -98,13 +90,32 @@ export function FormLog({ form, disabled }: { form: UseFormReturn<z.infer<typeof
                   placeholder="Color or appearance" 
                   {...field} />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
       </div>
 
       <DateTimeInput disabled={disabled} defaultValue={new Date()} />      
+
+      {!disabled &&
+        <FormField
+          disabled={disabled}
+          control={form.control}
+          name="leaf"
+          render={({ field }) => (
+            <FormItem className="space-y-0 pt-1 flex items-center gap-2 leading-none">
+              <FormControl>
+                <Checkbox
+                  className="border-border h-5 w-5"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormLabel>Count as Leaf</FormLabel>
+            </FormItem>
+          )}
+        />
+      }
     </div>
   )
 }

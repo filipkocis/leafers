@@ -89,6 +89,7 @@ export default function NewPostForm({
       appearance: "",
       variant: "",
       timestamp: new Date(),
+      leaf: true,
       
       parent: parent,
     },
