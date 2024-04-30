@@ -5,6 +5,7 @@ import { combinedSchema, logPostSchema } from "../utils/newPostSchema";
 import createClient from "@services/supabase/action";
 import { dataNonNull, errorMessage } from "@utils/returnObjects";
 import { getOwnProfileId } from "@app/utils/server/getProfile";
+import { ZodUnitTypeEnum, zodUnitEnum } from "@app/utils/types";
 
 export async function createPost(values: z.infer<typeof combinedSchema>) {
   try {
@@ -43,14 +44,21 @@ async function createLogPostEntry(values: z.infer<typeof logPostSchema>, postId:
     const validPostData = logPostSchema.parse(values)
     const supabase = await createClient()
 
+    const unit = (zodUnitEnum as any as string[]).includes(validPostData.unit ?? '') ? validPostData.unit as ZodUnitTypeEnum : undefined
+
+    if (validPostData.leaf && unit !== 'gram' && unit !== 'miligram') {
+      throw new Error(`Leaf log post has invalid unit: ${unit}`) 
+    }
+
     const { error: logEntryError } = await supabase.from("logs").insert({
       post_id: postId,
       timestamp: validPostData.timestamp.toISOString(),
       name: validPostData.name,
       amount: validPostData.amount,
-      unit: validPostData.unit,
+      unit: unit,
       variant: validPostData.variant,
       appearance: validPostData.appearance,
+      is_leaf: validPostData.leaf
     })
 
     if (logEntryError) {
