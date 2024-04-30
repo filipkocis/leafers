@@ -22,10 +22,17 @@ export const logPostSchema = basePostSchema.extend({
   name: z.string()
     .max(64, { message: "Value is too long" })
     .optional(),
-  amount: z.coerce.number()
-    .positive({ message: "Amount must be positive" })
+  amount: z.string()
+    .transform((value) => (value === '' ? undefined : Number(value)))
+    .refine((value) => (value === undefined) || (typeof value === 'number' && value > 0), {
+      message: 'Amount must be a positive number',
+    })
     .optional(),
-  unit: z.enum(zodUnitEnum)
+  unit: z.string()
+    .transform((value) => (value === 'none' ? undefined : value))
+    .refine((value) => value === undefined || (zodUnitEnum as any as string[]).includes(value), {
+        message: 'Invalid unit',
+    })
     .optional(),
   variant: z.string()
     .max(64, { message: "Value is too long" })
@@ -34,6 +41,7 @@ export const logPostSchema = basePostSchema.extend({
     .max(64, { message: "Value is too long" })
     .optional(),
   timestamp: z.date({ required_error: "Date is required" }),
+  leaf: z.boolean(),
 })
 
 export const combinedSchema = z.union([
