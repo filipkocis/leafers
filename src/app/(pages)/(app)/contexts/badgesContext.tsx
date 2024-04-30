@@ -1,7 +1,6 @@
 "use client"
 
 import { createContext, useContext } from "react";
-import { ProfileFull } from "@app/utils/types";
 
 export const BadgesContext = createContext<string[] | null>(null)
 

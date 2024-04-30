@@ -9,6 +9,7 @@ import { ThemeToggle } from "@components/ThemeToggle";
 import OnlyDesktop from "@app/components/OnlyDesktop";
 import BadgesProvider from "./contexts/badgesContext";
 import { getProfileBadgesArray } from "@app/features/badges/utils/server/getBadges";
+import HeaderHeightProvider from "./contexts/headerHeightContext";
 
 export default async function Layout({ children, newPostForm }: { children: React.ReactNode, newPostForm: React.ReactNode }) {
   const { data: profile, error: profileError } = await getOwnProfileData()
@@ -22,49 +23,51 @@ export default async function Layout({ children, newPostForm }: { children: Reac
 
   return (
     <div className="grid">
-      <BadgesProvider value={badges}>
-        <ProfileProvider value={profile}>
-          <div className="grid grid-rows-[auto_1fr] relative w-full min-h-[100dvh]">
-            <LayoutHeader height={layoutHeaderHeightRem}>
-              <ul className="p-1 overflow-x-hidden overflow-ellipsis grid grid-rows-[auto,auto,1fr] gap-2 h-full">
-                <SideNavItems adminPrivileges={adminPrivileges} />
-                <NewPostButton />
-                {newPostForm}
-                <ThemeToggle className="self-end place-self-center" />
-              </ul>
-            </LayoutHeader>
+      <HeaderHeightProvider value={layoutHeaderHeightRem}>
+        <BadgesProvider value={badges}>
+          <ProfileProvider value={profile}>
+            <div className="grid grid-rows-[auto_1fr] relative w-full min-h-[100dvh]">
+              <LayoutHeader>
+                <ul className="p-1 overflow-x-hidden overflow-ellipsis grid grid-rows-[auto,auto,1fr] gap-2 h-full">
+                  <SideNavItems adminPrivileges={adminPrivileges} />
+                  <NewPostButton />
+                  {newPostForm}
+                  <ThemeToggle className="self-end place-self-center" />
+                </ul>
+              </LayoutHeader>
 
-            <div className="grid grid-cols-[auto_1fr] md:grid-cols-[1fr_auto_1fr]">
-              <div className="relative w-full">
-                <OnlyDesktop>
-                  <nav 
-                    style={{ top: layoutHeaderHeightRem }} 
-                    className="max-sm:hidden sticky w-full items-start flex justify-end overflow-y-auto"
-                  >
-                    <ul 
-                      style={{ 
-                        height: `calc(100dvh - ${layoutHeaderHeightRem})` 
-                      }}
-                      className="grid grid-rows-[auto,auto,1fr] gap-6 w-min h-full p-2"
+              <div className="grid grid-cols-[auto_1fr] md:grid-cols-[1fr_auto_1fr]">
+                <div className="relative w-full">
+                  <OnlyDesktop>
+                    <nav 
+                      style={{ top: layoutHeaderHeightRem }} 
+                      className="max-sm:hidden sticky w-full items-start flex justify-end overflow-y-auto"
                     >
-                      <SideNavItems adminPrivileges={adminPrivileges} />
-                      <NewPostButton />
-                      {newPostForm}
-                      <ThemeToggle className="self-end place-self-center" />
-                    </ul>
-                  </nav>
-                </OnlyDesktop>
+                      <ul 
+                        style={{ 
+                          height: `calc(100dvh - ${layoutHeaderHeightRem})` 
+                        }}
+                        className="grid grid-rows-[auto,auto,1fr] gap-6 w-min h-full p-2"
+                      >
+                        <SideNavItems adminPrivileges={adminPrivileges} />
+                        <NewPostButton />
+                        {newPostForm}
+                        <ThemeToggle className="self-end place-self-center" />
+                      </ul>
+                    </nav>
+                  </OnlyDesktop>
+                </div>
+
+                <main className="grid md:w-[42rem] sm:border-l sm:border-r">
+                  {children}
+                </main>
               </div>
-
-              <main className="grid md:w-[42rem] sm:border-l sm:border-r">
-                {children}
-              </main>
             </div>
-          </div>
 
-          <footer></footer>
-        </ProfileProvider>
-      </BadgesProvider>
+            <footer></footer>
+          </ProfileProvider>
+        </BadgesProvider>
+      </HeaderHeightProvider>
     </div>
   )
 }

@@ -6,8 +6,10 @@ import { LayoutHeaderProfileDropdown } from "./LayoutHeaderProfileDropdown";
 import Link from "next/link";
 import { LayoutHeaderSheet } from "./LayoutHeaderSheet";
 import { useIsMobile } from "@app/contexts/IsMobileContext";
+import { useHeaderHeight } from "@app/contexts/headerHeightContext";
 
-export default function LayoutHeader({ height, children }: { height: string, children?: React.ReactNode }) {
+export default function LayoutHeader({ children }: { children?: React.ReactNode }) {
+  const height = useHeaderHeight()
   const isMobile = useIsMobile()
 
   if (isMobile && children === undefined) return null;

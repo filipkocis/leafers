@@ -12,12 +12,10 @@ export default async function PremiumPage() {
 
   if (!session) redirect('/login', RedirectType.replace) 
 
-  const headerHeightRem = '4.5rem'
-
   return (
     <div className="flex flex-col relative w-full min-h-[100dvh]">
       <OnlyDesktop>
-        <LayoutHeader height={headerHeightRem} />
+        <LayoutHeader />
       </OnlyDesktop>
 
       <div className="p-2 flex items-center justify-start">
