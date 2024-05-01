@@ -46,18 +46,18 @@ async function createLogPostEntry(values: z.infer<typeof logPostSchema>, postId:
 
     const unit = (zodUnitEnum as any as string[]).includes(validPostData.unit ?? '') ? validPostData.unit as ZodUnitTypeEnum : undefined
 
-    if (validPostData.leaf && unit !== 'gram' && unit !== 'miligram') {
+    if (validPostData.leaf && unit !== 'gram') {
       throw new Error(`Leaf log post has invalid unit: ${unit}`) 
     }
 
     const { error: logEntryError } = await supabase.from("logs").insert({
       post_id: postId,
       timestamp: validPostData.timestamp.toISOString(),
-      name: validPostData.name,
-      amount: validPostData.amount,
+      name: validPostData.name || undefined,
+      amount: validPostData.amount || undefined,
       unit: unit,
-      variant: validPostData.variant,
-      appearance: validPostData.appearance,
+      variant: validPostData.variant || undefined,
+      appearance: validPostData.appearance || undefined,
       is_leaf: validPostData.leaf
     })
 

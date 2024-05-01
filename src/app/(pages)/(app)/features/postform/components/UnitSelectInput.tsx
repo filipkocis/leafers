@@ -14,7 +14,7 @@ export default function UnitSelectInput({ disabled, className }: { disabled?: bo
     const leafValue = form.getValues('leaf')
 
     if (leafValue === isLeaf) return;
-    if (leafValue && !unitValue.endsWith('gram')) form.setValue('unit', 'gram') 
+    if (leafValue && unitValue !== 'gram') form.setValue('unit', 'gram') 
 
     setIsLeaf(leafValue)
   }, [form, isLeaf, setIsLeaf])
@@ -41,7 +41,7 @@ export default function UnitSelectInput({ disabled, className }: { disabled?: bo
 
             <SelectContent>
               <SelectItem value="gram">g</SelectItem>
-              <SelectItem value="miligram">mg</SelectItem>
+              <SelectItem disabled={isLeaf} value="miligram">mg</SelectItem>
               <SelectItem disabled={isLeaf} value="second">s</SelectItem>
               <SelectItem disabled={isLeaf} value="hour">h</SelectItem>
               <SelectItem disabled={isLeaf} value="none">None</SelectItem>

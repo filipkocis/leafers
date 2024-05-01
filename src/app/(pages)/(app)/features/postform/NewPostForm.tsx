@@ -121,6 +121,12 @@ export default function NewPostForm({
       </div>
     ), { id: toastId })
 
+    if (values.type === 'log' && typeof values.amount === 'number') {
+      // INFO: a hack since zod server-side requires amount to be a string
+      // @ts-ignore
+      values.amount = `${values.amount}`
+    }
+
     createPost(values).then(({ error }) => {
       if (error) toast.error(error.message, { id: toastId });
       else toast.success(`${capitalize(values.type)} post has been created`, { id: toastId });
