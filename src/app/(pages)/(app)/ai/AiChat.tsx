@@ -31,7 +31,7 @@ export default function AiChat({ limited }: { limited: boolean }) {
     // server only support 3.5 or 4
     const uselatest = (model === "gpt-4-turbo" && !limited) ? true : undefined
 
-    const response = await fetch("http://localhost:3000/ai/api", { 
+    const response = await fetch(window.location.origin + "/ai/api", { 
       method: "POST",
       body: JSON.stringify({ 
         uselatest,
