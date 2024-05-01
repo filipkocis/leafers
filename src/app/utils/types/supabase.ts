@@ -81,6 +81,7 @@ export type Database = {
           appearance: string | null
           created_at: string
           id: string
+          is_leaf: boolean | null
           name: string | null
           post_id: string
           timestamp: string
@@ -92,6 +93,7 @@ export type Database = {
           appearance?: string | null
           created_at?: string
           id?: string
+          is_leaf?: boolean | null
           name?: string | null
           post_id: string
           timestamp?: string
@@ -103,6 +105,7 @@ export type Database = {
           appearance?: string | null
           created_at?: string
           id?: string
+          is_leaf?: boolean | null
           name?: string | null
           post_id?: string
           timestamp?: string
@@ -334,6 +337,17 @@ export type Database = {
           logs_count: number
           followers_count: number
           following_count: number
+        }[]
+      }
+      get_profile_log_stats: {
+        Args: {
+          profile_id: string
+        }
+        Returns: {
+          total: number
+          day: number
+          week: number
+          month: number
         }[]
       }
     }
