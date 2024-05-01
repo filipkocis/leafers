@@ -26,7 +26,7 @@ const Component = forwardRef<HTMLDivElement, MessageProps >(
       )}>
         <div className={cn("flex gap-2 items-center", isAssistant && "flex-row-reverse")}> 
           <p className="font-bold">{isAssistant ? "Capybara" : "You"}</p>
-          <ProfilePicture className={cn(isAssistant ? "self-start" : "self-end")} src={null} size={32} />
+          <ProfilePicture className={cn(isAssistant ? "self-start" : "self-end")} src={isAssistant ? "/capybara.png" : null} size={32} />
         </div>
         <Card 
           ref={ref} 
