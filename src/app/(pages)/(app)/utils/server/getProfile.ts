@@ -2,6 +2,19 @@ import createClient from "@services/supabase/server";
 import { getUser } from "@utils/server/auth";
 import { dataNonNull, dataSomeNonNull, errorMessage } from "@utils/returnObjects";
 
+export async function getProfileLogStats(profile_id: string) {
+  try {
+    const supabase = await createClient()
+
+    const { data, error } = await supabase.rpc("get_profile_log_stats", { profile_id }).select('total, day, week, month').single()
+    if (error) throw error
+
+    return dataNonNull(data as { total: number, day: number, week: number, month: number })
+  } catch (error) {
+    return errorMessage(error, "Could not get profile logs stats")
+  }
+}
+
 export async function getOwnProfileData() {
   try {
     const supabase = await createClient();
