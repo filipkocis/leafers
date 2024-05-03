@@ -134,7 +134,12 @@ export default function NewPostForm({
       toast.error(err.message, { id: toastId })
     }).finally(() => {
       if (modalCloser) modalCloser();
-      if (!preventRefresh) router.refresh();
+      if (!preventRefresh) { 
+        setTimeout(() => {
+          router.refresh();
+          window.location.reload();
+        }, 500)
+      }
     })
   }
 
