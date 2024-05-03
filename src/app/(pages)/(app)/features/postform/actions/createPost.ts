@@ -41,6 +41,12 @@ export async function createPost(values: z.infer<typeof combinedSchema>) {
 
 async function createLogPostEntry(values: z.infer<typeof logPostSchema>, postId: string) {
   try {
+    if (typeof values.amount === 'number') {
+      // INFO: a hack since zod server-side requires amount to be a string
+      // @ts-ignore
+      values.amount = `${values.amount}`
+    }
+
     const validPostData = logPostSchema.parse(values)
     const supabase = await createClient()
 
