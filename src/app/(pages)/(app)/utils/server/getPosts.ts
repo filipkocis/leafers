@@ -12,7 +12,7 @@ export async function getPaginatedPosts({
     const baseQuery = following ? supabase.rpc('get_followed_posts') : supabase.from('posts'); 
 
     let query = baseQuery
-      .select('*, profiles!inner(id, username, display_name, avatar_url), replies_count:posts!parent_id(count), likes_count:likes(count), reposts_count:reposts!post_id(count)')
+      .select('*, profiles!public_posts_profile_id_fkey!inner(id, username, display_name, avatar_url), replies_count:posts!parent_id(count), likes_count:likes(count), reposts_count:reposts!post_id(count)')
       .order('created_at', { ascending: false })
       .limit(limit)
       .range(offset, limit + offset - 1);

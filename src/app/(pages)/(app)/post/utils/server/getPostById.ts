@@ -8,7 +8,7 @@ export async function getPostById(id: string) {
     
     let { data, error } = await supabase
       .from('posts')
-      .select('*, profiles!inner(id, username, display_name, avatar_url), replies_count:posts!parent_id(count), likes_count:likes(count), reposts_count:reposts!post_id(count)')
+      .select('*, profiles!public_posts_profile_id_fkey!inner(id, username, display_name, avatar_url), replies_count:posts!parent_id(count), likes_count:likes(count), reposts_count:reposts!post_id(count)')
       .eq('id', id)
       .single()
 
