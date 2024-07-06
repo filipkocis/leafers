@@ -28,6 +28,9 @@ export function ModelToggle({ className, model, setModel }: { className?: string
         <DropdownMenuItem onClick={() => setModel && setModel("gpt-4-turbo")}>
           GPT 4 Turbo
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setModel && setModel("gpt-4o")}>
+          GPT 4 Omni
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

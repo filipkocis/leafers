@@ -29,12 +29,13 @@ export default function AiChat({ limited }: { limited: boolean }) {
     if (streamRef.current === null) return;
 
     // server only support 3.5 or 4
-    const uselatest = (model === "gpt-4-turbo" && !limited) ? true : undefined
+    // const usemodel = (model === "gpt-4-turbo" && !limited) ? true : undefined
+    const usemodel = limited ? undefined : model
 
     const response = await fetch(window.location.origin + "/ai/api", { 
       method: "POST",
       body: JSON.stringify({ 
-        uselatest,
+        usemodel,
         messages: [...messages,  { content: prompt, role: "user" }]
       }),
       keepalive: true,

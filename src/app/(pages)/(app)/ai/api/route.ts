@@ -52,9 +52,10 @@ async function getBodyProps(body: any, admin: boolean) {
       messages,
     }
 
-    if (Object.hasOwn(body, 'uselatest') && body.uselatest === true) {
+    if (Object.hasOwn(body, 'usemodel') && body.usemodel === true) {
       if (!admin) return errorObject({ message: "Cannot change model", status: 401 })
-      else props.model = 'gpt-4-turbo'
+      // else props.model = 'gpt-4-turbo'
+      else props.model = body.usemodel
     }
 
     return dataNonNull(props)
