@@ -6,16 +6,22 @@ import Link from "next/link"
 import TIERS from "./utils/tiers"
 import SubscriptionCard from "./components/SubscriptionCard"
 import OnlyDesktop from "@app/components/OnlyDesktop"
+import ProfileProvider from "@app/contexts/profileContext"
+import { getOwnProfileData } from "@app/utils/server/getProfile"
 
 export default async function PremiumPage() {
   const session = await getSession()
-
   if (!session) redirect('/login', RedirectType.replace) 
+
+  const { data: profile, error: profileError } = await getOwnProfileData()
+  if (profileError) redirect('/home', RedirectType.replace) 
 
   return (
     <div className="flex flex-col relative w-full min-h-[100dvh]">
       <OnlyDesktop>
-        <LayoutHeader />
+        <ProfileProvider value={profile}>
+          <LayoutHeader />
+        </ProfileProvider>
       </OnlyDesktop>
 
       <div className="p-2 flex items-center justify-start">
