@@ -28,7 +28,6 @@ export default function RegisterForm() {
  
   function onSubmit(values: z.infer<typeof registerUserSchema>) {
     // TODO: show state with toast
-    console.log(values)
     registerUser(values).then(res => console.log(res)).catch(err => console.error(err)).finally(() => console.log("finished registration process"))
   }
 
